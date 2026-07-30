@@ -1,5 +1,5 @@
 // PESONA - APP LOGIC & SUPABASE CLOUD DATABASE
-// Integrated directly with Supabase Cloud Database & Local Media Upload System
+// Integrated directly with Supabase Cloud Database & Global Media Upload System
 
 window.SUPABASE_URL = 'https://ccyvckgritpqaowujnxk.supabase.co';
 window.SUPABASE_ANON_KEY = 'sb_publishable_zWUttIaaPmmOvMUTduyqSA_BRzl9vui';
@@ -17,8 +17,9 @@ let dbCache = {
     pengajuan: []
 };
 
-// In-memory fallback image store if localStorage is full
+// In-memory fallback image store
 const memoryImageStore = {};
+const DEFAULT_SVG_PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"><rect width="300" height="200" fill="%23f1f5f9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%2394a3b8">Media UMKM Pesaren</text></svg>';
 
 // --- DEFAULT DATA FOR INITIAL DATABASE SEEDING IF TABLES ARE EMPTY ---
 const DEFAULT_CATEGORIES = [
@@ -40,10 +41,10 @@ const DEFAULT_UMKM = [
         slug: "keripik-tempe-bu-siti",
         pemilik: "Siti Nurhayati",
         deskripsi: "Keripik tempe homemade dengan bahan pilihan dan tanpa pengawet. Renyah, gurih, dan cocok untuk semua usia. Dibuat secara higienis menggunakan tempe berkualitas terbaik.",
-        alamat: "Desa Pesaren, Kec. Wedarijaksa, Kab. Pati, Jawa Tengah",
-        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Wedarijaksa%2C%20Pati&output=embed",
-        logo: "https://images.unsplash.com/photo-1621510456681-23a23cfb5f57?q=80&w=300&auto=format&fit=crop",
-        foto_cover: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1000&auto=format&fit=crop",
+        alamat: "Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah",
+        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Sukorejo%2C%20Kendal&t=&z=16&ie=UTF8&iwloc=B&output=embed",
+        logo: "local:logo_1",
+        foto_cover: "local:cover_1",
         status: "Aktif"
     },
     {
@@ -54,56 +55,24 @@ const DEFAULT_UMKM = [
         slug: "batik-pesaren",
         pemilik: "Ahmad Fauzi",
         deskripsi: "Menyediakan batik tulis dan cap khas Desa Pesaren dengan motif tradisional kontemporer yang elegan. Setiap helai kain batik dibuat secara manual dengan teknik canting lilin malam tradisional.",
-        alamat: "Desa Pesaren, RT 02/RW 01, Kec. Wedarijaksa, Kab. Pati, Jawa Tengah",
-        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Wedarijaksa%2C%20Pati&output=embed",
-        logo: "https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=300&auto=format&fit=crop",
-        foto_cover: "https://images.unsplash.com/photo-1606744824163-985d376605aa?q=80&w=1000&auto=format&fit=crop",
-        status: "Aktif"
-    },
-    {
-        id: 3,
-        kategori_id: 1,
-        created_by: 1,
-        nama_umkm: "Madurasa Alami",
-        slug: "madurasa-alami",
-        pemilik: "Rina Lestari",
-        deskripsi: "Madu hutan murni 100% tanpa bahan campuran kimia. Diambil langsung dari peternakan lebah hutan pilihan Desa Pesaren untuk menjaga kualitas alami.",
-        alamat: "Desa Pesaren, Kec. Wedarijaksa, Kab. Pati, Jawa Tengah",
-        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Wedarijaksa%2C%20Pati&output=embed",
-        logo: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?q=80&w=300&auto=format&fit=crop",
-        foto_cover: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=1000&auto=format&fit=crop",
-        status: "Aktif"
-    },
-    {
-        id: 4,
-        kategori_id: 3,
-        created_by: 1,
-        nama_umkm: "Eco Craft Pesaren",
-        slug: "eco-craft-pesaren",
-        pemilik: "Dwi Setyawan",
-        deskripsi: "Kerajinan anyaman serat alam (bambu, rotan, dan eceng gondok) ramah lingkungan. Menjual aneka tas jinjing dan dekorasi rumah bernilai seni tinggi.",
-        alamat: "Desa Pesaren, Kec. Wedarijaksa, Kab. Pati, Jawa Tengah",
-        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Wedarijaksa%2C%20Pati&output=embed",
-        logo: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=300&auto=format&fit=crop",
-        foto_cover: "https://images.unsplash.com/photo-1608170825938-a8ea0305d46c?q=80&w=1000&auto=format&fit=crop",
+        alamat: "Desa Pesaren, RT 02/RW 01, Kec. Sukorejo, Kab. Kendal, Jawa Tengah",
+        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Sukorejo%2C%20Kendal&t=&z=16&ie=UTF8&iwloc=B&output=embed",
+        logo: "local:logo_2",
+        foto_cover: "local:cover_2",
         status: "Aktif"
     }
 ];
 
 const DEFAULT_PRODUCTS = [
-    { id: 1, umkm_id: 1, nama_produk: "Keripik Tempe Original", deskripsi: "Keripik tempe tipis renyah rasa bawang ketumbar yang khas dan gurih alami.", harga: 15000, stok: 100, foto_produk: "https://images.unsplash.com/photo-1621510456681-23a23cfb5f57?q=80&w=300", status: "Aktif" },
-    { id: 2, umkm_id: 1, nama_produk: "Keripik Tempe Pedas", deskripsi: "Keripik tempe pedas dengan taburan cabai kering dan racikan daun jeruk.", harga: 15000, stok: 80, foto_produk: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=300", status: "Aktif" },
-    { id: 3, umkm_id: 2, nama_produk: "Kain Batik Tulis Pesaren", deskripsi: "Kain katun primisima premium ukuran 2 meter x 1.15 meter.", harga: 250000, stok: 5, foto_produk: "https://images.unsplash.com/photo-1606744824163-985d376605aa?q=80&w=300", status: "Aktif" },
-    { id: 4, umkm_id: 3, nama_produk: "Madu Randu Murni 250ml", deskripsi: "Madu randu asli tanpa campuran pemanis, kaya enzim alami.", harga: 65000, stok: 45, foto_produk: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=300", status: "Aktif" },
-    { id: 5, umkm_id: 4, nama_produk: "Tas Anyaman Eceng Gondok", deskripsi: "Tas tangan estetik ramah lingkungan berlapis kain satin di bagian dalam.", harga: 85000, stok: 12, foto_produk: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=300", status: "Aktif" }
+    { id: 1, umkm_id: 1, nama_produk: "Keripik Tempe Original", deskripsi: "Keripik tempe tipis renyah rasa bawang ketumbar yang khas dan gurih alami.", harga: 15000, stok: 100, foto_produk: "local:prod_1", status: "Aktif" },
+    { id: 2, umkm_id: 1, nama_produk: "Keripik Tempe Pedas", deskripsi: "Keripik tempe pedas dengan taburan cabai kering dan racikan daun jeruk.", harga: 15000, stok: 80, foto_produk: "local:prod_2", status: "Aktif" }
 ];
 
 const DEFAULT_SOCIALS = [
     { id: 1, umkm_id: 1, jenis: "WhatsApp", link: "081234567890" },
     { id: 2, umkm_id: 1, jenis: "Instagram", link: "https://instagram.com/keripiktempe.busiti" },
     { id: 3, umkm_id: 2, jenis: "Instagram", link: "https://instagram.com/batik_pesaren" },
-    { id: 4, umkm_id: 3, jenis: "WhatsApp", link: "081234567891" },
-    { id: 5, umkm_id: 4, jenis: "Instagram", link: "https://instagram.com/ecocraft.pesaren" }
+    { id: 4, umkm_id: 2, jenis: "WhatsApp", link: "081234567891" }
 ];
 
 // --- 1. DATABASE INITIALIZATION & RELOAD ---
@@ -114,7 +83,6 @@ async function initDatabase() {
             console.log('Supabase client initialized.');
             await reloadCache();
 
-            // Auto seed if tables are empty
             if (dbCache.users.length === 0 || dbCache.kategori_umkm.length === 0 || dbCache.umkm.length === 0) {
                 console.log('Supabase tables empty, performing initial seed...');
                 await seedInitialData();
@@ -194,7 +162,7 @@ const db = {
 };
 
 // --- IMAGE CANVAS COMPRESSOR FOR LOCAL FILE UPLOADS ---
-function compressImage(file, maxWidth = 600, quality = 0.8) {
+function compressImage(file, maxWidth = 500, quality = 0.75) {
     return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -226,11 +194,21 @@ function compressImage(file, maxWidth = 600, quality = 0.8) {
     });
 }
 
-// --- IMAGE RESOLVER: GETS UPLOADED MEDIA OR WEB URL ---
-function getImageUrl(dbValue, itemKey, fallbackUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300') {
+// --- GLOBAL CLOUD MEDIA RESOLVER (WORKS ACROSS ALL DEVICES) ---
+function getImageUrl(dbValue, itemKey, fallbackUrl = DEFAULT_SVG_PLACEHOLDER) {
     if (itemKey) {
-        const localUpload = localStorage.getItem('uploaded_img_' + itemKey) || memoryImageStore['uploaded_img_' + itemKey];
-        if (localUpload) return localUpload;
+        const memoryStore = memoryImageStore['uploaded_img_' + itemKey];
+        if (memoryStore) return memoryStore;
+
+        const cloudMedia = dbCache.sosial_media.find(s => s.jenis === 'Lainnya' && s.link && s.link.startsWith(itemKey + ':'));
+        if (cloudMedia) {
+            const dataUrl = cloudMedia.link.substring(itemKey.length + 1);
+            memoryImageStore['uploaded_img_' + itemKey] = dataUrl;
+            return dataUrl;
+        }
+
+        const localStore = localStorage.getItem('uploaded_img_' + itemKey);
+        if (localStore) return localStore;
     }
 
     if (!dbValue || typeof dbValue !== 'string') return fallbackUrl;
@@ -238,6 +216,12 @@ function getImageUrl(dbValue, itemKey, fallbackUrl = 'https://images.unsplash.co
 
     if (dbValue.startsWith('local:')) {
         const key = dbValue.replace('local:', '');
+        const cloudMedia = dbCache.sosial_media.find(s => s.jenis === 'Lainnya' && s.link && s.link.startsWith(key + ':'));
+        if (cloudMedia) {
+            const dataUrl = cloudMedia.link.substring(key.length + 1);
+            memoryImageStore['uploaded_img_' + key] = dataUrl;
+            return dataUrl;
+        }
         const stored = localStorage.getItem('uploaded_img_' + key) || memoryImageStore['uploaded_img_' + key];
         if (stored) return stored;
         return fallbackUrl;
@@ -254,17 +238,41 @@ function getImageUrl(dbValue, itemKey, fallbackUrl = 'https://images.unsplash.co
     return fallbackUrl;
 }
 
-function saveUploadedImage(key, dataUrl) {
+// --- PERSISTS UPLOADED IMAGE TO SUPABASE CLOUD DATABASE ---
+async function saveUploadedImage(key, dataUrl, umkmId = 1) {
     if (!key || !dataUrl) return;
+
+    memoryImageStore['uploaded_img_' + key] = dataUrl;
     try {
         localStorage.setItem('uploaded_img_' + key, dataUrl);
     } catch (e) {
-        console.warn('LocalStorage limit reached, saving to memory store:', e);
+        console.warn('LocalStorage limit:', e);
     }
-    memoryImageStore['uploaded_img_' + key] = dataUrl;
+
+    if (supabaseClient) {
+        try {
+            const linkVal = `${key}:${dataUrl}`;
+            const existing = dbCache.sosial_media.find(s => s.jenis === 'Lainnya' && s.link && s.link.startsWith(key + ':'));
+
+            if (existing) {
+                await supabaseClient.from('sosial_media').update({ link: linkVal }).eq('id', existing.id);
+            } else {
+                const nextSocId = await getNextTableId('sosial_media');
+                await supabaseClient.from('sosial_media').insert([{
+                    id: nextSocId,
+                    umkm_id: umkmId,
+                    jenis: 'Lainnya',
+                    link: linkVal
+                }]);
+            }
+            await reloadCache();
+        } catch (e) {
+            console.error('Error persisting media to Supabase:', e);
+        }
+    }
 }
 
-// --- MAP EMBED FORMATTER ---
+// --- MAP EMBED FORMATTER (ZOOMED IN WITH RED MARKER PIN) ---
 function formatMapEmbedUrl(mapsInput, addressInput) {
     if (!mapsInput || typeof mapsInput !== 'string') mapsInput = '';
     mapsInput = mapsInput.trim();
@@ -276,12 +284,14 @@ function formatMapEmbedUrl(mapsInput, addressInput) {
         }
     }
 
-    if (mapsInput.includes('/maps/embed')) {
+    if (mapsInput.includes('/maps/embed') || mapsInput.includes('google.com/maps/embed')) {
         return mapsInput;
     }
 
-    const targetQuery = mapsInput || addressInput || 'Desa Pesaren, Kec. Wedarijaksa, Kab. Pati, Jawa Tengah';
-    return `https://maps.google.com/maps?q=${encodeURIComponent(targetQuery)}&output=embed`;
+    const targetQuery = mapsInput || addressInput || 'Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah';
+    const cleanQuery = targetQuery.replace('https://maps.google.com/maps?q=', '').replace('https://goo.gl/maps/', '').replace('https://maps.app.goo.gl/', '');
+
+    return `https://maps.google.com/maps?q=${encodeURIComponent(cleanQuery)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
 }
 
 // --- HELPER FUNCTIONS ---
@@ -624,7 +634,7 @@ function renderUMKMDetail(slug) {
     const cat = getCategoryMap()[umkm.kategori_id] || { nama_kategori: 'Umum' };
     const products = db.produk().filter(p => p.umkm_id === umkm.id && p.status === 'Aktif');
     const gallery = db.galeri_umkm().filter(g => g.umkm_id === umkm.id);
-    const socialMedia = db.sosial_media().filter(s => s.umkm_id === umkm.id);
+    const socialMedia = db.sosial_media().filter(s => s.umkm_id === umkm.id && s.jenis !== 'Lainnya');
 
     const waLink = socialMedia.find(s => s.jenis === 'WhatsApp');
     const igLink = socialMedia.find(s => s.jenis === 'Instagram');
@@ -635,7 +645,7 @@ function renderUMKMDetail(slug) {
         const finalWaUrl = cleanedNumber.startsWith('62') ? cleanedNumber : (cleanedNumber.startsWith('0') ? '62' + cleanedNumber.slice(1) : cleanedNumber);
         headerActionButtons += `
             <a href="https://wa.me/${finalWaUrl}" target="_blank" class="flex-grow sm:flex-grow-0 inline-flex items-center justify-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-sm">
-                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <i class="fa-brands fa-whatsapp text-xl"></i>
                 <span>WhatsApp</span>
             </a>
         `;
@@ -644,7 +654,7 @@ function renderUMKMDetail(slug) {
         const finalIgUrl = igLink.link.startsWith('http') ? igLink.link : 'https://instagram.com/' + igLink.link.replace('@', '');
         headerActionButtons += `
             <a href="${finalIgUrl}" target="_blank" class="flex-grow sm:flex-grow-0 inline-flex items-center justify-center space-x-2 bg-pink-600 hover:bg-pink-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-sm">
-                <i class="fa-brands fa-instagram text-lg"></i>
+                <i class="fa-brands fa-instagram text-xl"></i>
                 <span>Instagram</span>
             </a>
         `;
@@ -724,12 +734,10 @@ function renderUMKMDetail(slug) {
                 label = s.link.startsWith('@') ? s.link : '@' + s.link.split('/').pop();
             } else if (s.jenis === 'WhatsApp') {
                 iconClass = 'fa-brands fa-whatsapp text-emerald-600';
-                link = `https://wa.me/${s.link.replace(/[^0-9]/g, '')}`;
+                const cleanedNumber = s.link.replace(/[^0-9]/g, '');
+                const finalWa = cleanedNumber.startsWith('62') ? cleanedNumber : (cleanedNumber.startsWith('0') ? '62' + cleanedNumber.slice(1) : cleanedNumber);
+                link = `https://wa.me/${finalWa}`;
                 label = s.link;
-            } else if (s.jenis === 'Facebook') {
-                iconClass = 'fa-brands fa-facebook text-blue-600';
-            } else if (s.jenis === 'TikTok') {
-                iconClass = 'fa-brands fa-tiktok text-slate-800';
             }
 
             return `
@@ -819,7 +827,7 @@ function renderUMKMDetail(slug) {
                 <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
                     <h3 class="text-lg font-bold text-forest-800 mb-4 flex items-center space-x-2">
                         <i class="fa-solid fa-share-nodes text-forest-800"></i>
-                        <span>Ikuti Kami</span>
+                        <span>Kontak & Sosial Media</span>
                     </h3>
                     <div class="grid grid-cols-1 gap-3">
                         ${socialsHtml}
@@ -847,7 +855,6 @@ function renderKontak() {
             const pesan = document.getElementById('input-pesan').value;
 
             try {
-                // Dynamically fetch exact next ID from Supabase table to avoid PKEY collisions
                 const nextPengajuanId = await getNextTableId('pengajuan');
 
                 const { error } = await supabaseClient.from('pengajuan').insert([{
@@ -863,7 +870,7 @@ function renderKontak() {
                 if (error) throw error;
 
                 await reloadCache();
-                showToast('Pesan pengajuan Anda berhasil dikirim! Silakan tunggu konfirmasi admin.');
+                showToast('Pesan pengajuan Anda berhasil dikirim ke Supabase! Silakan tunggu konfirmasi admin.');
                 form.reset();
             } catch (err) {
                 console.error(err);
@@ -977,7 +984,7 @@ function renderAdmin() {
                         <div class="space-y-4">
                             <div>
                                 <label for="login-email" class="block text-sm font-semibold text-slate-700 mb-1">Email Admin</label>
-                                <input type="email" id="login-email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700" placeholder="admin@pesaren.desa.id">
+                                <input type="email" id="login-email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700" placeholder="••••••••">
                             </div>
                             <div>
                                 <label for="login-password" class="block text-sm font-semibold text-slate-700 mb-1">Kata Sandi</label>
@@ -1333,8 +1340,8 @@ function renderAdminUMKMForm(el) {
         }
     }
 
-    const currentLogoUrl = isEdit ? getImageUrl(data.logo, 'logo_' + data.id) : (data.logo || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300');
-    const currentCoverUrl = isEdit ? getImageUrl(data.foto_cover, 'cover_' + data.id) : (data.foto_cover || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1000');
+    const currentLogoUrl = isEdit ? getImageUrl(data.logo, 'logo_' + data.id) : DEFAULT_SVG_PLACEHOLDER;
+    const currentCoverUrl = isEdit ? getImageUrl(data.foto_cover, 'cover_' + data.id) : DEFAULT_SVG_PLACEHOLDER;
 
     el.innerHTML = `
         <div class="mb-8">
@@ -1394,7 +1401,7 @@ function renderAdminUMKMForm(el) {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="form-alamat" class="block text-sm font-semibold text-slate-700 mb-1">Alamat Lengkap Usaha <span class="text-rose-500">*</span></label>
-                            <input type="text" id="form-alamat" required value="${data.alamat}" placeholder="Desa Pesaren, Kec. Wedarijaksa" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                            <input type="text" id="form-alamat" required value="${data.alamat}" placeholder="Desa Pesaren, Kec. Sukorejo, Kendal" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
                         </div>
                         <div>
                             <label for="form-maps" class="block text-sm font-semibold text-slate-700 mb-1">Link / Iframe Google Maps</label>
@@ -1404,24 +1411,22 @@ function renderAdminUMKMForm(el) {
                 </div>
 
                 <div class="border-t border-slate-100 pt-6">
-                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center"><i class="fa-regular fa-image mr-2 text-forest-800"></i>Logo & Foto Profil</h3>
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center"><i class="fa-regular fa-image mr-2 text-forest-800"></i>Media Foto Unggahan</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Unggah File / Input URL Logo UMKM</label>
-                            <input type="text" id="form-logo" required value="${currentLogoUrl}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 mb-2">
-                            <input type="file" id="form-logo-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100 transition-all cursor-pointer bg-slate-50 border border-slate-200 rounded-xl p-1">
-                            <div class="mt-3 flex items-center space-x-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                                <img id="form-logo-preview" src="${currentLogoUrl}" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
-                                <span class="text-xxs text-slate-400">Pratinjau logo UMKM.</span>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Unggah File Logo UMKM</label>
+                            <input type="file" id="form-logo-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-800 file:text-white hover:file:bg-forest-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
+                            <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
+                                <img id="form-logo-preview" src="${currentLogoUrl}" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                <span class="text-xs text-slate-500 font-medium">Pratinjau logo yang diunggah.</span>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Unggah File / Input URL Sampul Cover</label>
-                            <input type="text" id="form-cover" required value="${currentCoverUrl}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 mb-2">
-                            <input type="file" id="form-cover-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100 transition-all cursor-pointer bg-slate-50 border border-slate-200 rounded-xl p-1">
-                            <div class="mt-3 flex items-center space-x-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                                <img id="form-cover-preview" src="${currentCoverUrl}" class="w-20 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
-                                <span class="text-xxs text-slate-400">Pratinjau foto sampul.</span>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Unggah File Foto Sampul</label>
+                            <input type="file" id="form-cover-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-800 file:text-white hover:file:bg-forest-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
+                            <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
+                                <img id="form-cover-preview" src="${currentCoverUrl}" class="w-20 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                <span class="text-xs text-slate-500 font-medium">Pratinjau foto sampul.</span>
                             </div>
                         </div>
                     </div>
@@ -1435,15 +1440,17 @@ function renderAdminUMKMForm(el) {
         </div>
     `;
 
+    let pendingLogoDataUrl = null;
+    let pendingCoverDataUrl = null;
+
     const logoFileInput = document.getElementById('form-logo-file');
     if (logoFileInput) {
         logoFileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-                const compressed = await compressImage(file, 400, 0.8);
-                document.getElementById('form-logo').value = compressed;
+                pendingLogoDataUrl = await compressImage(file, 500, 0.75);
                 const preview = document.getElementById('form-logo-preview');
-                if (preview) preview.src = compressed;
+                if (preview) preview.src = pendingLogoDataUrl;
             }
         });
     }
@@ -1453,10 +1460,9 @@ function renderAdminUMKMForm(el) {
         coverFileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-                const compressed = await compressImage(file, 800, 0.8);
-                document.getElementById('form-cover').value = compressed;
+                pendingCoverDataUrl = await compressImage(file, 800, 0.75);
                 const preview = document.getElementById('form-cover-preview');
-                if (preview) preview.src = compressed;
+                if (preview) preview.src = pendingCoverDataUrl;
             }
         });
     }
@@ -1476,8 +1482,6 @@ function renderAdminUMKMForm(el) {
         const alamat = document.getElementById('form-alamat').value.trim();
         const mapsRaw = document.getElementById('form-maps').value.trim();
         const maps = formatMapEmbedUrl(mapsRaw, alamat);
-        const rawLogo = document.getElementById('form-logo').value.trim();
-        const rawCover = document.getElementById('form-cover').value.trim();
 
         const waVal = document.getElementById('form-whatsapp').value.trim();
         const igVal = document.getElementById('form-instagram').value.trim();
@@ -1492,20 +1496,18 @@ function renderAdminUMKMForm(el) {
                 targetId = await getNextTableId('umkm');
             }
 
-            // Save image locally if base64 data URL
-            let dbLogo = rawLogo;
             const logoKey = `logo_${targetId}`;
-            if (rawLogo.startsWith('data:image') || rawLogo.length > 200) {
-                saveUploadedImage(logoKey, rawLogo);
-                dbLogo = `local:${logoKey}`;
+            const coverKey = `cover_${targetId}`;
+
+            if (pendingLogoDataUrl) {
+                await saveUploadedImage(logoKey, pendingLogoDataUrl, targetId);
+            }
+            if (pendingCoverDataUrl) {
+                await saveUploadedImage(coverKey, pendingCoverDataUrl, targetId);
             }
 
-            let dbCover = rawCover;
-            const coverKey = `cover_${targetId}`;
-            if (rawCover.startsWith('data:image') || rawCover.length > 200) {
-                saveUploadedImage(coverKey, rawCover);
-                dbCover = `local:${coverKey}`;
-            }
+            const dbLogo = `local:${logoKey}`;
+            const dbCover = `local:${coverKey}`;
 
             if (isEdit) {
                 const { error: updateErr } = await supabaseClient
@@ -1526,7 +1528,7 @@ function renderAdminUMKMForm(el) {
 
                 if (updateErr) throw updateErr;
 
-                await supabaseClient.from('sosial_media').delete().eq('umkm_id', targetId);
+                await supabaseClient.from('sosial_media').delete().eq('umkm_id', targetId).neq('jenis', 'Lainnya');
             } else {
                 const { data: inserted, error: insertErr } = await supabaseClient
                     .from('umkm')
@@ -1570,8 +1572,8 @@ function renderAdminUMKMForm(el) {
                 const nextProdId = await getNextTableId('produk');
                 const prodKey = `prod_${nextProdId}`;
 
-                if (rawLogo.startsWith('data:image')) {
-                    saveUploadedImage(prodKey, rawLogo);
+                if (pendingLogoDataUrl) {
+                    await saveUploadedImage(prodKey, pendingLogoDataUrl, targetId);
                 }
 
                 const { error: prodErr } = await supabaseClient.from('produk').insert([{
@@ -1609,7 +1611,6 @@ function renderAdminProductsList(el) {
     }
 
     const products = db.produk().filter(p => p.umkm_id === umkmId);
-    const defaultProductFoto = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300';
 
     el.innerHTML = `
         <div class="mb-8">
@@ -1648,13 +1649,12 @@ function renderAdminProductsList(el) {
                             </select>
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-750 mb-1">Unggah Foto File / Input Link</label>
-                        <input type="text" id="form-product-foto" value="${defaultProductFoto}" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none text-slate-700 text-sm mb-2">
-                        <input type="file" id="form-product-foto-file" accept="image/*" class="w-full text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-1 mb-2">
-                        <div class="flex items-center space-x-3 bg-slate-50 p-2 rounded-xl border border-slate-100">
-                            <img id="form-product-foto-preview" src="${defaultProductFoto}" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shadow-sm">
-                            <span class="text-[10px] text-slate-400">Pratinjau foto produk unggahan.</span>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <label class="block text-sm font-semibold text-slate-750 mb-2">Unggah Foto Produk <span class="text-rose-500">*</span></label>
+                        <input type="file" id="form-product-foto-file" accept="image/*" class="w-full text-xs text-slate-500 bg-white border border-slate-200 rounded-xl p-1 mb-3">
+                        <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
+                            <img id="form-product-foto-preview" src="${DEFAULT_SVG_PLACEHOLDER}" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
+                            <span class="text-xs text-slate-500 font-medium">Pratinjau foto produk unggahan.</span>
                         </div>
                     </div>
                     <div>
@@ -1664,7 +1664,7 @@ function renderAdminProductsList(el) {
 
                     <div class="pt-4 flex items-center justify-end space-x-2">
                         <button type="button" onclick="cancelProductEdit()" id="btn-product-cancel" class="hidden px-4 py-2 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl text-slate-750 font-semibold text-xs transition-colors">Batal</button>
-                        <button type="submit" class="px-6 py-2.5 bg-forest-800 hover:bg-forest-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Simpan Produk</button>
+                        <button type="submit" id="btn-product-submit" class="px-6 py-2.5 bg-forest-800 hover:bg-forest-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Simpan Produk</button>
                     </div>
                 </form>
             </div>
@@ -1725,15 +1725,16 @@ function renderAdminProductsList(el) {
         </div>
     `;
 
+    let pendingProductDataUrl = null;
+
     const productFileInput = document.getElementById('form-product-foto-file');
     if (productFileInput) {
         productFileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-                const compressed = await compressImage(file, 600, 0.8);
-                document.getElementById('form-product-foto').value = compressed;
+                pendingProductDataUrl = await compressImage(file, 500, 0.75);
                 const preview = document.getElementById('form-product-foto-preview');
-                if (preview) preview.src = compressed;
+                if (preview) preview.src = pendingProductDataUrl;
             }
         });
     }
@@ -1741,12 +1742,15 @@ function renderAdminProductsList(el) {
     document.getElementById('admin-product-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const submitBtn = document.getElementById('btn-product-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Menyimpan...';
+
         const productIdVal = document.getElementById('form-product-id').value;
         const nama_produk = document.getElementById('form-product-nama').value.trim();
         const harga = parseFloat(document.getElementById('form-product-harga').value);
         const stok = parseInt(document.getElementById('form-product-stok').value);
         const status = document.getElementById('form-product-status').value;
-        const rawFoto = document.getElementById('form-product-foto').value.trim();
         const deskripsi = document.getElementById('form-product-deskripsi').value.trim();
 
         try {
@@ -1755,14 +1759,13 @@ function renderAdminProductsList(el) {
                 targetProdId = await getNextTableId('produk');
             }
 
-            let dbFoto = rawFoto;
             const itemKey = `prod_${targetProdId}`;
 
-            // Store uploaded base64 image locally
-            if (rawFoto.startsWith('data:image') || rawFoto.length > 200) {
-                saveUploadedImage(itemKey, rawFoto);
-                dbFoto = `local:${itemKey}`;
+            if (pendingProductDataUrl) {
+                await saveUploadedImage(itemKey, pendingProductDataUrl, umkmId);
             }
+
+            const dbFoto = `local:${itemKey}`;
 
             if (productIdVal) {
                 const { error } = await supabaseClient.from('produk').update({
@@ -1799,6 +1802,8 @@ function renderAdminProductsList(el) {
         } catch (err) {
             console.error(err);
             showToast('Gagal menyimpan produk: ' + err.message, 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Simpan Produk';
         }
     });
 }
@@ -1814,7 +1819,6 @@ window.editProduct = function (id) {
     document.getElementById('form-product-harga').value = product.harga;
     document.getElementById('form-product-stok').value = product.stok;
     document.getElementById('form-product-status').value = product.status;
-    document.getElementById('form-product-foto').value = prodImgUrl;
     document.getElementById('form-product-deskripsi').value = product.deskripsi || '';
 
     const preview = document.getElementById('form-product-foto-preview');
@@ -1828,10 +1832,8 @@ window.cancelProductEdit = function () {
     const form = document.getElementById('admin-product-form');
     if (form) form.reset();
     document.getElementById('form-product-id').value = '';
-    const defaultFoto = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300';
-    document.getElementById('form-product-foto').value = defaultFoto;
     const preview = document.getElementById('form-product-foto-preview');
-    if (preview) preview.src = defaultFoto;
+    if (preview) preview.src = DEFAULT_SVG_PLACEHOLDER;
     document.getElementById('product-form-title').innerText = 'Tambah Produk Baru';
     document.getElementById('btn-product-cancel').classList.add('hidden');
 };
