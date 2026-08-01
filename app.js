@@ -42,7 +42,7 @@ const DEFAULT_UMKM = [
         pemilik: "Siti Nurhayati",
         deskripsi: "Keripik tempe homemade dengan bahan pilihan dan tanpa pengawet. Renyah, gurih, dan cocok untuk semua usia. Dibuat secara higienis menggunakan tempe berkualitas terbaik.",
         alamat: "Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah",
-        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Sukorejo%2C%20Kendal&t=&z=16&ie=UTF8&iwloc=B&output=embed",
+        maps: "Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah",
         logo: "local:logo_1",
         foto_cover: "local:cover_1",
         status: "Aktif"
@@ -56,7 +56,7 @@ const DEFAULT_UMKM = [
         pemilik: "Ahmad Fauzi",
         deskripsi: "Menyediakan batik tulis dan cap khas Desa Pesaren dengan motif tradisional kontemporer yang elegan. Setiap helai kain batik dibuat secara manual dengan teknik canting lilin malam tradisional.",
         alamat: "Desa Pesaren, RT 02/RW 01, Kec. Sukorejo, Kab. Kendal, Jawa Tengah",
-        maps: "https://maps.google.com/maps?q=Desa%20Pesaren%2C%20Sukorejo%2C%20Kendal&t=&z=16&ie=UTF8&iwloc=B&output=embed",
+        maps: "Desa Pesaren, RT 02/RW 01, Kec. Sukorejo, Kab. Kendal, Jawa Tengah",
         logo: "local:logo_2",
         foto_cover: "local:cover_2",
         status: "Aktif"
@@ -69,10 +69,10 @@ const DEFAULT_PRODUCTS = [
 ];
 
 const DEFAULT_SOCIALS = [
-    { id: 1, umkm_id: 1, jenis: "WhatsApp", link: "081234567890" },
+    { id: 1, umkm_id: 1, jenis: "WhatsApp", link: "6281234567890" },
     { id: 2, umkm_id: 1, jenis: "Instagram", link: "https://instagram.com/keripiktempe.busiti" },
     { id: 3, umkm_id: 2, jenis: "Instagram", link: "https://instagram.com/batik_pesaren" },
-    { id: 4, umkm_id: 2, jenis: "WhatsApp", link: "081234567891" }
+    { id: 4, umkm_id: 2, jenis: "WhatsApp", link: "6281234567891" }
 ];
 
 // --- 1. DATABASE INITIALIZATION & RELOAD ---
@@ -277,6 +277,7 @@ function formatMapEmbedUrl(mapsInput, addressInput) {
     if (!mapsInput || typeof mapsInput !== 'string') mapsInput = '';
     mapsInput = mapsInput.trim();
 
+    // Jika input adalah tag iframe HTML (misal dari Google Maps Share -> Embed)
     if (mapsInput.includes('<iframe')) {
         const match = mapsInput.match(/src=["']([^"']+)["']/i);
         if (match && match[1]) {
@@ -284,15 +285,36 @@ function formatMapEmbedUrl(mapsInput, addressInput) {
         }
     }
 
+    // Jika sudah berupa URL embed Google Maps resmi
     if (mapsInput.includes('/maps/embed') || mapsInput.includes('google.com/maps/embed')) {
         return mapsInput;
     }
 
-    // Determine base query: either provided embed, address, or default
-    const targetQuery = mapsInput || addressInput || 'Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah';
-    const cleanQuery = targetQuery.replace('https://maps.google.com/maps?q=', '').replace('https://goo.gl/maps/', '').replace('https://maps.app.goo.gl/', '');
-    // Return embed URL with encoded address and iwloc=B to show red marker
-    return `https://maps.google.com/maps?q=${encodeURIComponent(cleanQuery)}\u0026t=\u0026z=16\u0026ie=UTF8\u0026iwloc=B\u0026output=embed`;
+    // Jika mapsInput berupa URL web (seperti maps.app.goo.gl, goo.gl/maps, atau link web lainnya),
+    // iframe embed TIDAK BISA memuat shortlink kode tersebut secara langsung via query q=.
+    // Oleh karena itu, kita selalu buat URL embed resmi berdasarkan alamat lokasi.
+    let searchQuery = addressInput || 'Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah';
+
+    if (!mapsInput.startsWith('http') && mapsInput.length > 2) {
+        searchQuery = mapsInput;
+    }
+
+    return `https://maps.google.com/maps?q=${encodeURIComponent(searchQuery)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
+}
+
+// --- HELPER TO RESOLVE WHATSAPP LINK FOR ANY UMKM ---
+function getWaLinkForUMKM(umkmId) {
+    const socials = db.sosial_media().filter(s => s.umkm_id === umkmId && s.jenis === 'WhatsApp');
+    if (socials.length > 0 && socials[0].link) {
+        const cleaned = socials[0].link.replace(/[^0-9]/g, '');
+        const finalWa = cleaned.startsWith('62') ? cleaned : (cleaned.startsWith('0') ? '62' + cleaned.slice(1) : cleaned);
+        return {
+            url: `https://wa.me/${finalWa}`,
+            raw: socials[0].link,
+            display: cleaned.startsWith('62') ? '0' + cleaned.slice(2) : (cleaned.startsWith('0') ? cleaned : '+' + cleaned)
+        };
+    }
+    return null;
 }
 
 // --- HELPER FUNCTIONS ---
@@ -440,6 +462,7 @@ function renderBeranda() {
         const cat = categories[item.kategori_id] || { nama_kategori: 'Umum' };
         const logoUrl = getImageUrl(item.logo, 'logo_' + item.id);
         const coverUrl = getImageUrl(item.foto_cover, 'cover_' + item.id);
+        const waData = getWaLinkForUMKM(item.id);
 
         return `
             <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm flex flex-col hover-lift h-full">
@@ -448,6 +471,11 @@ function renderBeranda() {
                     <span class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-forest-800 border border-white/50 shadow-sm">
                         ${cat.nama_kategori}
                     </span>
+                    ${waData ? `
+                    <a href="${waData.url}" target="_blank" class="absolute top-4 right-4 bg-emerald-500 hover:bg-emerald-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110" title="Chat WhatsApp (${waData.display})">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                    ` : ''}
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <div class="flex items-center space-x-3 mb-3">
@@ -457,10 +485,18 @@ function renderBeranda() {
                     <p class="text-slate-500 text-xs line-clamp-3 mb-4 leading-relaxed">${item.deskripsi}</p>
                     <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-xs font-medium text-slate-400">Pemilik: <strong class="text-slate-700">${item.pemilik}</strong></span>
-                        <a href="#/umkm-detail/${item.slug}" class="text-forest-850 hover:text-forest-700 text-xs font-bold flex items-center space-x-1">
-                            <span>Detail</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
+                        <div class="flex items-center space-x-2">
+                            ${waData ? `
+                            <a href="${waData.url}" target="_blank" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center space-x-1 border border-emerald-200/60 transition-all" title="Chat WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-sm text-emerald-600"></i>
+                                <span>WA</span>
+                            </a>
+                            ` : ''}
+                            <a href="#/umkm-detail/${item.slug}" class="text-forest-850 hover:text-forest-700 text-xs font-bold flex items-center space-x-1">
+                                <span>Detail</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -545,6 +581,7 @@ function filterAndRenderUMKMs() {
         const cat = catMap[item.kategori_id] || { nama_kategori: 'Umum' };
         const logoUrl = getImageUrl(item.logo, 'logo_' + item.id);
         const coverUrl = getImageUrl(item.foto_cover, 'cover_' + item.id);
+        const waData = getWaLinkForUMKM(item.id);
 
         return `
             <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm flex flex-col hover-lift">
@@ -553,6 +590,11 @@ function filterAndRenderUMKMs() {
                     <span class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-forest-800 border border-white/50 shadow-sm">
                         ${cat.nama_kategori}
                     </span>
+                    ${waData ? `
+                    <a href="${waData.url}" target="_blank" class="absolute top-4 right-4 bg-emerald-500 hover:bg-emerald-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110" title="Chat WhatsApp (${waData.display})">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                    ` : ''}
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <div class="flex items-center space-x-3 mb-3">
@@ -562,10 +604,18 @@ function filterAndRenderUMKMs() {
                     <p class="text-slate-500 text-xs line-clamp-3 mb-4 leading-relaxed">${item.deskripsi}</p>
                     <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-xs font-medium text-slate-400">Pemilik: <strong class="text-slate-700">${item.pemilik}</strong></span>
-                        <a href="#/umkm-detail/${item.slug}" class="text-forest-850 hover:text-forest-700 text-xs font-bold flex items-center space-x-1">
-                            <span>Detail Profil</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
+                        <div class="flex items-center space-x-2">
+                            ${waData ? `
+                            <a href="${waData.url}" target="_blank" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center space-x-1 border border-emerald-200/60 transition-all" title="Chat WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-sm text-emerald-600"></i>
+                                <span>WA</span>
+                            </a>
+                            ` : ''}
+                            <a href="#/umkm-detail/${item.slug}" class="text-forest-850 hover:text-forest-700 text-xs font-bold flex items-center space-x-1">
+                                <span>Detail Profil</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -640,17 +690,23 @@ function renderUMKMDetail(slug) {
     const waLink = socialMedia.find(s => s.jenis === 'WhatsApp');
     const igLink = socialMedia.find(s => s.jenis === 'Instagram');
 
-    let headerActionButtons = '';
-    if (waLink) {
-        const cleanedNumber = waLink.link.replace(/[^0-9]/g, '');
-        const finalWaUrl = cleanedNumber.startsWith('62') ? cleanedNumber : (cleanedNumber.startsWith('0') ? '62' + cleanedNumber.slice(1) : cleanedNumber);
-        headerActionButtons += `
-            <a href="https://wa.me/${finalWaUrl}" target="_blank" class="flex-grow sm:flex-grow-0 inline-flex items-center justify-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-sm">
-                <i class="fa-brands fa-whatsapp text-xl"></i>
-                <span>WhatsApp</span>
-            </a>
-        `;
+    // Helper: format nomor WA bersih ke format internasional
+    function formatWaNumber(raw) {
+        if (!raw) return '6281234567890';
+        const cleaned = raw.replace(/[^0-9]/g, '');
+        return cleaned.startsWith('62') ? cleaned : (cleaned.startsWith('0') ? '62' + cleaned.slice(1) : (cleaned.length > 5 ? cleaned : '6281234567890'));
     }
+
+    const waNum = (waLink && waLink.link) ? waLink.link : '081234567890';
+    const finalWaUrl = formatWaNumber(waNum);
+
+    let headerActionButtons = `
+        <a href="https://wa.me/${finalWaUrl}?text=Halo%20${encodeURIComponent(umkm.nama_umkm)}%2C%20saya%20tertarik%20dengan%20produk%20Anda." target="_blank" class="flex-grow sm:flex-grow-0 inline-flex items-center justify-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-emerald-200 transition-all text-sm">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            <span>WhatsApp</span>
+        </a>
+    `;
+
     if (igLink) {
         const finalIgUrl = igLink.link.startsWith('http') ? igLink.link : 'https://instagram.com/' + igLink.link.replace('@', '');
         headerActionButtons += `
@@ -662,8 +718,12 @@ function renderUMKMDetail(slug) {
     }
 
     const embedMapUrl = formatMapEmbedUrl(umkm.maps, umkm.alamat);
+    let mapsOpenUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(umkm.alamat)}`;
+    if (umkm.maps && umkm.maps.startsWith('http') && !umkm.maps.includes('/maps/embed')) {
+        mapsOpenUrl = umkm.maps;
+    }
     headerActionButtons += `
-        <a href="${embedMapUrl.replace('&output=embed', '')}" target="_blank" class="flex-grow sm:flex-grow-0 inline-flex items-center justify-center space-x-2 bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-sm">
+        <a href="${mapsOpenUrl}" target="_blank" class="flex-grow sm:flex-grow-0 inline-flex items-center justify-center space-x-2 bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-sm">
             <i class="fa-solid fa-map-location-dot text-lg"></i>
             <span>Buka Maps</span>
         </a>
@@ -682,7 +742,7 @@ function renderUMKMDetail(slug) {
             return `
                 <div class="bg-white rounded-2xl overflow-hidden border border-slate-150 shadow-sm flex flex-col hover-lift">
                     <div class="relative h-48 bg-slate-50 overflow-hidden flex items-center justify-center">
-                        <img src="${prodImgUrl}" alt="${p.nama_produk}" class="w-full h-full object-cover">
+                        <img data-detail-img="${prodImgUrl}" alt="${p.nama_produk}" class="w-full h-full object-cover">
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <h4 class="font-bold text-slate-800 text-base mb-1">${p.nama_produk}</h4>
@@ -704,13 +764,13 @@ function renderUMKMDetail(slug) {
     if (gallery.length > 0) {
         galleryHtml = `
             <div class="mt-12 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
-                <h3 class="text-2xl font-bold text-forest-800 mb-6">Galeri & Dokumentasi</h3>
+                <h3 class="text-2xl font-bold text-forest-800 mb-6">Galeri &amp; Dokumentasi</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     ${gallery.map(g => {
             const galImgUrl = getImageUrl(g.foto, 'gal_' + g.id);
             return `
                             <div class="group relative rounded-2xl overflow-hidden shadow-sm bg-slate-100 aspect-video">
-                                <img src="${galImgUrl}" alt="${g.keterangan || 'Galeri'}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                <img data-detail-img="${galImgUrl}" alt="${g.keterangan || 'Galeri'}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
                                     <p class="text-white text-xs font-semibold leading-snug">${g.keterangan || ''}</p>
                                 </div>
@@ -725,30 +785,35 @@ function renderUMKMDetail(slug) {
     let socialsHtml = '';
     if (socialMedia.length > 0) {
         socialsHtml = socialMedia.map(s => {
-            let iconClass = 'fa-link';
-            let label = s.jenis;
+            let iconClass = 'fa-solid fa-link text-slate-500';
+            let label = s.link;
             let link = s.link;
+            let bgClass = 'bg-slate-100';
 
             if (s.jenis === 'Instagram') {
                 iconClass = 'fa-brands fa-instagram text-pink-600';
+                bgClass = 'bg-pink-50';
                 link = s.link.startsWith('http') ? s.link : 'https://instagram.com/' + s.link.replace('@', '');
-                label = s.link.startsWith('@') ? s.link : '@' + s.link.split('/').pop();
+                label = '@' + (s.link.startsWith('@') ? s.link.slice(1) : s.link.split('/').pop());
             } else if (s.jenis === 'WhatsApp') {
                 iconClass = 'fa-brands fa-whatsapp text-emerald-600';
-                const cleanedNumber = s.link.replace(/[^0-9]/g, '');
-                const finalWa = cleanedNumber.startsWith('62') ? cleanedNumber : (cleanedNumber.startsWith('0') ? '62' + cleanedNumber.slice(1) : cleanedNumber);
+                bgClass = 'bg-emerald-50';
+                const finalWa = formatWaNumber(s.link);
                 link = `https://wa.me/${finalWa}`;
-                label = s.link;
+                // Format tampilan nomor yang lebih bersih
+                const cleaned = s.link.replace(/[^0-9]/g, '');
+                const display = cleaned.startsWith('62') ? '0' + cleaned.slice(2) : (cleaned.startsWith('0') ? cleaned : '+' + cleaned);
+                label = display;
             }
 
             return `
-                <a href="${link}" target="_blank" class="flex items-center space-x-3 p-4 bg-slate-50 border border-slate-100 hover:border-forest-800/30 rounded-xl transition-all">
-                    <span class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm">
+                <a href="${link}" target="_blank" class="flex items-center space-x-3 p-4 bg-slate-50 border border-slate-100 hover:border-forest-800/30 rounded-xl transition-all hover:bg-white">
+                    <span class="w-10 h-10 rounded-lg ${bgClass} flex items-center justify-center shadow-sm flex-shrink-0">
                         <i class="${iconClass} text-lg"></i>
                     </span>
-                    <div>
+                    <div class="min-w-0">
                         <span class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-1">${s.jenis}</span>
-                        <span class="block text-sm font-semibold text-slate-700 truncate max-w-[150px] leading-tight">${label}</span>
+                        <span class="block text-sm font-semibold text-slate-700 truncate leading-tight">${label}</span>
                     </div>
                 </a>
             `;
@@ -757,22 +822,41 @@ function renderUMKMDetail(slug) {
         socialsHtml = '<p class="text-slate-400 text-sm">Belum ada akun sosial media yang ditautkan.</p>';
     }
 
+    // Floating WA button (jika ada nomor WA)
+    const floatingWa = waLink ? `
+        <a href="https://wa.me/${formatWaNumber(waLink.link)}?text=Halo%20${encodeURIComponent(umkm.nama_umkm)}%2C%20saya%20tertarik%20dengan%20produk%20Anda." 
+           target="_blank" 
+           class="fixed bottom-6 right-6 z-50 flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3.5 rounded-2xl shadow-xl hover:shadow-emerald-300/50 transition-all hover:scale-105 group"
+           id="floating-wa-btn">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <span class="text-sm hidden group-hover:inline transition-all">Chat Sekarang</span>
+        </a>
+    ` : '';
+
     const mainLogoUrl = getImageUrl(umkm.logo, 'logo_' + umkm.id);
     const mainCoverUrl = getImageUrl(umkm.foto_cover, 'cover_' + umkm.id);
 
     container.innerHTML = `
+        ${floatingWa}
         <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-100/50 mb-12">
             <div class="relative h-64 sm:h-96 w-full bg-slate-900 overflow-hidden">
-                <img src="${mainCoverUrl}" alt="Cover Image" class="w-full h-full object-cover">
+                <img id="detail-cover-img" src="" alt="Cover Image" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <span class="absolute top-6 left-6 bg-emerald-500 text-forest-900 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">
                     ${cat.nama_kategori}
                 </span>
+                ${waLink ? `
+                <a href="https://wa.me/${formatWaNumber(waLink.link)}?text=Halo%20${encodeURIComponent(umkm.nama_umkm)}%2C%20saya%20tertarik%20dengan%20produk%20Anda."
+                   target="_blank"
+                   class="absolute bottom-6 right-6 flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-sm backdrop-blur-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>Chat WA</span>
+                </a>` : ''}
             </div>
 
             <div class="relative px-6 sm:px-10 pb-8 pt-4">
                 <div class="absolute -top-16 left-6 sm:left-10 w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-white p-1 shadow-lg border border-slate-100">
-                    <img src="${mainLogoUrl}" alt="Logo" class="w-full h-full object-cover rounded-xl">
+                    <img id="detail-logo-img" src="" alt="Logo" class="w-full h-full object-cover rounded-xl">
                 </div>
 
                 <div class="h-10 sm:h-12 w-full"></div>
@@ -790,6 +874,13 @@ function renderUMKMDetail(slug) {
                                 <i class="fa-solid fa-location-dot text-forest-800 flex-shrink-0"></i>
                                 <span class="line-clamp-1">Alamat: <strong class="text-slate-700">${umkm.alamat}</strong></span>
                             </div>
+                            ${waLink ? `
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+                                <a href="https://wa.me/${formatWaNumber(waLink.link)}" target="_blank" class="text-emerald-700 font-semibold hover:underline">
+                                    ${(() => { const c = waLink.link.replace(/[^0-9]/g,''); return c.startsWith('62') ? '0'+c.slice(2) : c; })()}
+                                </a>
+                            </div>` : ''}
                         </div>
 
                         <p class="text-slate-650 leading-relaxed text-sm font-light">${umkm.deskripsi}</p>
@@ -821,14 +912,14 @@ function renderUMKMDetail(slug) {
                     </h3>
                     <p class="text-xs text-slate-500 mb-4">${umkm.alamat}</p>
                     <div class="h-64 sm:h-80 w-full rounded-2xl overflow-hidden border border-slate-100 shadow-sm relative">
-                        <iframe src="${embedMapUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe id="detail-map-iframe" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
                     <h3 class="text-lg font-bold text-forest-800 mb-4 flex items-center space-x-2">
                         <i class="fa-solid fa-share-nodes text-forest-800"></i>
-                        <span>Kontak & Sosial Media</span>
+                        <span>Kontak &amp; Sosial Media</span>
                     </h3>
                     <div class="grid grid-cols-1 gap-3">
                         ${socialsHtml}
@@ -839,6 +930,19 @@ function renderUMKMDetail(slug) {
 
         ${galleryHtml}
     `;
+
+    // Set gambar dan iframe via JS untuk menghindari masalah encoding HTML
+    const detailCover = document.getElementById('detail-cover-img');
+    if (detailCover) detailCover.src = mainCoverUrl;
+
+    const detailLogo = document.getElementById('detail-logo-img');
+    if (detailLogo) detailLogo.src = mainLogoUrl;
+
+    const detailMapIframe = document.getElementById('detail-map-iframe');
+    if (detailMapIframe) detailMapIframe.src = embedMapUrl;
+
+    // Set gambar produk & galeri via JS
+    document.querySelectorAll('[data-detail-img]').forEach(img => { img.src = img.dataset.detailImg; });
 }
 
 // 4. NARAHUBUNG / KONTAK FORM
