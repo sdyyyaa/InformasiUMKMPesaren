@@ -19,7 +19,7 @@ let dbCache = {
 
 // In-memory fallback image store
 const memoryImageStore = {};
-const DEFAULT_SVG_PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"><rect width="300" height="200" fill="%23f1f5f9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%2394a3b8">Media UMKM Pesaren</text></svg>';
+const DEFAULT_SVG_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23f1f5f9'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2394a3b8'>Media UMKM Pesaren</text></svg>";
 
 // --- DEFAULT DATA FOR INITIAL DATABASE SEEDING IF TABLES ARE EMPTY ---
 const DEFAULT_CATEGORIES = [
@@ -288,10 +288,11 @@ function formatMapEmbedUrl(mapsInput, addressInput) {
         return mapsInput;
     }
 
+    // Determine base query: either provided embed, address, or default
     const targetQuery = mapsInput || addressInput || 'Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah';
     const cleanQuery = targetQuery.replace('https://maps.google.com/maps?q=', '').replace('https://goo.gl/maps/', '').replace('https://maps.app.goo.gl/', '');
-
-    return `https://maps.google.com/maps?q=${encodeURIComponent(cleanQuery)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
+    // Return embed URL with encoded address and iwloc=B to show red marker
+    return `https://maps.google.com/maps?q=${encodeURIComponent(cleanQuery)}\u0026t=\u0026z=16\u0026ie=UTF8\u0026iwloc=B\u0026output=embed`;
 }
 
 // --- HELPER FUNCTIONS ---
@@ -1249,7 +1250,7 @@ function renderAdminUMKMList(el) {
                                         <td class="px-6 py-4 font-semibold text-slate-400">${index + 1}</td>
                                         <td class="px-6 py-4">
                                             <div class="flex items-center space-x-3">
-                                                <img src="${logoUrl}" alt="Logo" class="w-8 h-8 rounded-lg object-cover border border-slate-100">
+                                                <img data-umkm-img="${logoUrl}" alt="Logo" class="w-8 h-8 rounded-lg object-cover border border-slate-100">
                                                 <div>
                                                     <span class="block font-bold text-slate-800">${u.nama_umkm}</span>
                                                     <span class="block text-xxs text-slate-400">slug: ${u.slug}</span>
@@ -1283,6 +1284,8 @@ function renderAdminUMKMList(el) {
             </div>
         </div>
     `;
+    // Set UMKM logo images via JS to avoid HTML attribute encoding issues
+    document.querySelectorAll('[data-umkm-img]').forEach(img => { img.src = img.dataset.umkmImg; });
 }
 
 window.openUMKMForm = function (id = null) {
@@ -1417,7 +1420,7 @@ function renderAdminUMKMForm(el) {
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Unggah File Logo UMKM</label>
                             <input type="file" id="form-logo-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-800 file:text-white hover:file:bg-forest-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
                             <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
-                                <img id="form-logo-preview" src="${currentLogoUrl}" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                <img id="form-logo-preview" src="" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
                                 <span class="text-xs text-slate-500 font-medium">Pratinjau logo yang diunggah.</span>
                             </div>
                         </div>
@@ -1425,7 +1428,7 @@ function renderAdminUMKMForm(el) {
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Unggah File Foto Sampul</label>
                             <input type="file" id="form-cover-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-800 file:text-white hover:file:bg-forest-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
                             <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
-                                <img id="form-cover-preview" src="${currentCoverUrl}" class="w-20 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
+                                <img id="form-cover-preview" src="" class="w-20 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
                                 <span class="text-xs text-slate-500 font-medium">Pratinjau foto sampul.</span>
                             </div>
                         </div>
@@ -1442,6 +1445,13 @@ function renderAdminUMKMForm(el) {
 
     let pendingLogoDataUrl = null;
     let pendingCoverDataUrl = null;
+
+    // Set image src via JS to avoid HTML attribute encoding issues with data URLs
+    const logoPreview = document.getElementById('form-logo-preview');
+    if (logoPreview) logoPreview.src = currentLogoUrl;
+    const coverPreview = document.getElementById('form-cover-preview');
+    if (coverPreview) coverPreview.src = currentCoverUrl;
+
 
     const logoFileInput = document.getElementById('form-logo-file');
     if (logoFileInput) {
@@ -1653,7 +1663,7 @@ function renderAdminProductsList(el) {
                         <label class="block text-sm font-semibold text-slate-750 mb-2">Unggah Foto Produk <span class="text-rose-500">*</span></label>
                         <input type="file" id="form-product-foto-file" accept="image/*" class="w-full text-xs text-slate-500 bg-white border border-slate-200 rounded-xl p-1 mb-3">
                         <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
-                            <img id="form-product-foto-preview" src="${DEFAULT_SVG_PLACEHOLDER}" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
+                            <img id="form-product-foto-preview" src="" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
                             <span class="text-xs text-slate-500 font-medium">Pratinjau foto produk unggahan.</span>
                         </div>
                     </div>
@@ -1693,7 +1703,7 @@ function renderAdminProductsList(el) {
         return `
                                         <tr>
                                             <td class="px-4 py-3">
-                                                <img src="${prodImgUrl}" alt="${p.nama_produk}" class="w-12 h-12 rounded-lg object-cover border border-slate-100">
+                                                <img data-prod-img="${prodImgUrl}" alt="${p.nama_produk}" class="w-12 h-12 rounded-lg object-cover border border-slate-100">
                                             </td>
                                             <td class="px-4 py-3">
                                                 <span class="block font-bold text-slate-800">${p.nama_produk}</span>
@@ -1724,6 +1734,13 @@ function renderAdminProductsList(el) {
             </div>
         </div>
     `;
+
+    // Set preview image src via JS to avoid HTML encoding issues with data URLs
+    const prodPreview = document.getElementById('form-product-foto-preview');
+    if (prodPreview) prodPreview.src = DEFAULT_SVG_PLACEHOLDER;
+
+    // Set product list images via JS
+    document.querySelectorAll('[data-prod-img]').forEach(img => { img.src = img.dataset.prodImg; });
 
     let pendingProductDataUrl = null;
 
