@@ -336,7 +336,7 @@ function generateSlug(text) {
 
 function showToast(message, type = 'success') {
     const toast = document.createElement('div');
-    toast.className = `fixed bottom-5 right-5 z-50 flex items-center space-x-3 px-5 py-4 rounded-xl shadow-xl transition-all duration-300 transform translate-y-10 opacity-0 ${type === 'success' ? 'bg-forest-800 text-white' : 'bg-rose-600 text-white'
+    toast.className = `fixed bottom-5 right-5 z-50 flex items-center space-x-3 px-5 py-4 rounded-xl shadow-xl transition-all duration-300 transform translate-y-10 opacity-0 ${type === 'success' ? 'bg-navy-800 text-white' : 'bg-rose-600 text-white'
         }`;
 
     const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
@@ -399,14 +399,14 @@ function handleRouteChange() {
     const param = parts[2] || null;
 
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('border-forest-800', 'text-forest-800');
+        link.classList.remove('border-navy-800', 'text-navy-800');
         link.classList.add('border-transparent', 'text-slate-700');
     });
 
     const activeNavLink = document.getElementById(`nav-${pageName}`);
     if (activeNavLink) {
         activeNavLink.classList.remove('border-transparent', 'text-slate-700');
-        activeNavLink.classList.add('border-forest-800', 'text-forest-800');
+        activeNavLink.classList.add('border-navy-800', 'text-navy-800');
     }
 
     updateAdminNavHeader();
@@ -468,7 +468,7 @@ function renderBeranda() {
             <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm flex flex-col hover-lift h-full">
                 <div class="relative h-48 bg-slate-100 overflow-hidden">
                     <img src="${coverUrl}" alt="${item.nama_umkm}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                    <span class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-forest-800 border border-white/50 shadow-sm">
+                    <span class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-navy-800 border border-white/50 shadow-sm">
                         ${cat.nama_kategori}
                     </span>
                     ${waData ? `
@@ -492,7 +492,7 @@ function renderBeranda() {
                                 <span>WA</span>
                             </a>
                             ` : ''}
-                            <a href="#/umkm-detail/${item.slug}" class="text-forest-850 hover:text-forest-700 text-xs font-bold flex items-center space-x-1">
+                            <a href="#/umkm-detail/${item.slug}" class="text-navy-850 hover:text-navy-700 text-xs font-bold flex items-center space-x-1">
                                 <span>Detail</span>
                                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
@@ -587,7 +587,7 @@ function filterAndRenderUMKMs() {
             <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm flex flex-col hover-lift">
                 <div class="relative h-48 bg-slate-100 overflow-hidden">
                     <img src="${coverUrl}" alt="${item.nama_umkm}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                    <span class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-forest-800 border border-white/50 shadow-sm">
+                    <span class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-navy-800 border border-white/50 shadow-sm">
                         ${cat.nama_kategori}
                     </span>
                     ${waData ? `
@@ -611,7 +611,7 @@ function filterAndRenderUMKMs() {
                                 <span>WA</span>
                             </a>
                             ` : ''}
-                            <a href="#/umkm-detail/${item.slug}" class="text-forest-850 hover:text-forest-700 text-xs font-bold flex items-center space-x-1">
+                            <a href="#/umkm-detail/${item.slug}" class="text-navy-850 hover:text-navy-700 text-xs font-bold flex items-center space-x-1">
                                 <span>Detail Profil</span>
                                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
@@ -633,7 +633,7 @@ function filterAndRenderUMKMs() {
             const isActive = i === currentListPage;
             pagHtml += `
                 <button onclick="changeListPage(${i})" class="w-10 h-10 flex items-center justify-center font-semibold text-sm rounded-xl border ${isActive
-                    ? 'bg-forest-800 text-white border-forest-800 shadow-md'
+                    ? 'bg-navy-800 text-white border-navy-800 shadow-md'
                     : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                 } transition-all">
                     ${i}
@@ -671,7 +671,7 @@ function renderUMKMDetail(slug) {
                 <i class="fa-solid fa-face-frown text-5xl text-slate-350 mb-4"></i>
                 <h2 class="text-2xl font-bold text-slate-700 mb-2">Profil Tidak Ditemukan</h2>
                 <p class="text-slate-500 mb-6">Profil UMKM yang Anda cari tidak tersedia atau dinonaktifkan sementara.</p>
-                <a href="#/umkm" class="inline-flex items-center space-x-2 bg-forest-800 hover:bg-forest-700 text-white font-medium px-6 py-3 rounded-xl transition-all">
+                <a href="#/umkm" class="inline-flex items-center space-x-2 bg-navy-800 hover:bg-navy-700 text-white font-medium px-6 py-3 rounded-xl transition-all">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Kembali ke Daftar</span>
                 </a>
@@ -750,7 +750,7 @@ function renderUMKMDetail(slug) {
                         <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
                             <div>
                                 <span class="block text-xs text-slate-400 font-medium">Harga</span>
-                                <span class="block text-emerald-700 font-bold text-lg">Rp ${Number(p.harga).toLocaleString('id-ID')}<span class="text-xs text-slate-400 font-normal">/pcs</span></span>
+                                <span class="block text-navy-900 font-bold text-lg">Rp ${Number(p.harga).toLocaleString('id-ID')}<span class="text-xs text-slate-400 font-normal">/pcs</span></span>
                             </div>
                             <span class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-600 font-medium">Stok: ${p.stok}</span>
                         </div>
@@ -764,7 +764,7 @@ function renderUMKMDetail(slug) {
     if (gallery.length > 0) {
         galleryHtml = `
             <div class="mt-12 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
-                <h3 class="text-2xl font-bold text-forest-800 mb-6">Galeri &amp; Dokumentasi</h3>
+                <h3 class="text-2xl font-bold text-navy-800 mb-6">Galeri &amp; Dokumentasi</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     ${gallery.map(g => {
             const galImgUrl = getImageUrl(g.foto, 'gal_' + g.id);
@@ -807,7 +807,7 @@ function renderUMKMDetail(slug) {
             }
 
             return `
-                <a href="${link}" target="_blank" class="flex items-center space-x-3 p-4 bg-slate-50 border border-slate-100 hover:border-forest-800/30 rounded-xl transition-all hover:bg-white">
+                <a href="${link}" target="_blank" class="flex items-center space-x-3 p-4 bg-slate-50 border border-slate-100 hover:border-navy-800/30 rounded-xl transition-all hover:bg-white">
                     <span class="w-10 h-10 rounded-lg ${bgClass} flex items-center justify-center shadow-sm flex-shrink-0">
                         <i class="${iconClass} text-lg"></i>
                     </span>
@@ -842,7 +842,7 @@ function renderUMKMDetail(slug) {
             <div class="relative h-64 sm:h-96 w-full bg-slate-900 overflow-hidden">
                 <img id="detail-cover-img" src="" alt="Cover Image" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-                <span class="absolute top-6 left-6 bg-emerald-500 text-forest-900 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">
+                <span class="absolute top-6 left-6 bg-navy-800 text-white font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider shadow-md">
                     ${cat.nama_kategori}
                 </span>
                 ${waLink ? `
@@ -867,18 +867,18 @@ function renderUMKMDetail(slug) {
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 text-sm text-slate-500 mb-6">
                             <div class="flex items-center space-x-2">
-                                <i class="fa-solid fa-user text-forest-800"></i>
+                                <i class="fa-solid fa-user text-navy-800"></i>
                                 <span>Pemilik: <strong class="text-slate-700">${umkm.pemilik}</strong></span>
                             </div>
                             <div class="flex items-center space-x-2 col-span-1 sm:col-span-2">
-                                <i class="fa-solid fa-location-dot text-forest-800 flex-shrink-0"></i>
+                                <i class="fa-solid fa-location-dot text-navy-800 flex-shrink-0"></i>
                                 <span class="line-clamp-1">Alamat: <strong class="text-slate-700">${umkm.alamat}</strong></span>
                             </div>
                             ${waLink ? `
                             <div class="flex items-center space-x-2">
                                 <i class="fa-brands fa-whatsapp text-emerald-600"></i>
                                 <a href="https://wa.me/${formatWaNumber(waLink.link)}" target="_blank" class="text-emerald-700 font-semibold hover:underline">
-                                    ${(() => { const c = waLink.link.replace(/[^0-9]/g,''); return c.startsWith('62') ? '0'+c.slice(2) : c; })()}
+                                    ${(() => { const c = waLink.link.replace(/[^0-9]/g, ''); return c.startsWith('62') ? '0' + c.slice(2) : c; })()}
                                 </a>
                             </div>` : ''}
                         </div>
@@ -895,8 +895,8 @@ function renderUMKMDetail(slug) {
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div class="lg:col-span-2">
-                <h3 class="text-2xl font-bold text-forest-800 mb-6 flex items-center space-x-3">
-                    <i class="fa-solid fa-bag-shopping text-xl text-forest-800"></i>
+                <h3 class="text-2xl font-bold text-navy-800 mb-6 flex items-center space-x-3">
+                    <i class="fa-solid fa-bag-shopping text-xl text-navy-800"></i>
                     <span>Produk yang Dijual</span>
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -906,8 +906,8 @@ function renderUMKMDetail(slug) {
 
             <div class="lg:col-span-1 space-y-8">
                 <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
-                    <h3 class="text-lg font-bold text-forest-800 mb-4 flex items-center space-x-2">
-                        <i class="fa-solid fa-map-marked-alt text-forest-800"></i>
+                    <h3 class="text-lg font-bold text-navy-800 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-map-marked-alt text-navy-800"></i>
                         <span>Lokasi Usaha</span>
                     </h3>
                     <p class="text-xs text-slate-500 mb-4">${umkm.alamat}</p>
@@ -917,8 +917,8 @@ function renderUMKMDetail(slug) {
                 </div>
 
                 <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
-                    <h3 class="text-lg font-bold text-forest-800 mb-4 flex items-center space-x-2">
-                        <i class="fa-solid fa-share-nodes text-forest-800"></i>
+                    <h3 class="text-lg font-bold text-navy-800 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-share-nodes text-navy-800"></i>
                         <span>Kontak &amp; Sosial Media</span>
                     </h3>
                     <div class="grid grid-cols-1 gap-3">
@@ -975,7 +975,7 @@ function renderKontak() {
                 if (error) throw error;
 
                 await reloadCache();
-                showToast('Pesan pengajuan Anda berhasil dikirim ke Supabase! Silakan tunggu konfirmasi admin.');
+                showToast('Pesan pengajuan Anda berhasil dikirim! Silakan tunggu konfirmasi admin.');
                 form.reset();
             } catch (err) {
                 console.error(err);
@@ -1000,7 +1000,7 @@ function updateAdminNavHeader() {
         if (desktopContainer) {
             desktopContainer.innerHTML = `
                 <a href="#/admin" class="relative group flex items-center justify-center" title="Dashboard Admin (${loggedAdmin.name})">
-                    <div class="w-10 h-10 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center font-bold transition-all shadow-md border ${isActive ? 'ring-4 ring-emerald-500/30 border-emerald-300 bg-emerald-600' : 'border-emerald-400/30'
+                    <div class="w-10 h-10 rounded-full bg-navy-800 hover:bg-navy-700 text-white flex items-center justify-center font-bold transition-all shadow-md border ${isActive ? 'ring-4 ring-navy-800/30 border-sky-300 bg-navy-850' : 'border-sky-400/30'
                 }">
                         ${initial}
                     </div>
@@ -1010,7 +1010,7 @@ function updateAdminNavHeader() {
         if (mobileContainer) {
             mobileContainer.innerHTML = `
                 <a href="#/admin" class="relative block" title="Dashboard Admin (${loggedAdmin.name})">
-                    <div class="w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-sm border ${isActive ? 'ring-2 ring-emerald-500/30 border-emerald-300' : 'border-emerald-400/30'
+                    <div class="w-9 h-9 rounded-full bg-navy-800 text-white flex items-center justify-center font-bold text-sm shadow-sm border ${isActive ? 'ring-2 ring-navy-800/30 border-sky-300' : 'border-sky-400/30'
                 }">
                         ${initial}
                     </div>
@@ -1019,14 +1019,14 @@ function updateAdminNavHeader() {
         }
         if (mobileMenuContainer) {
             mobileMenuContainer.innerHTML = `
-                <a href="#/admin" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-base font-semibold text-emerald-700 ${isActive ? 'bg-emerald-100 text-emerald-850' : 'bg-emerald-50 hover:bg-emerald-100'
+                <a href="#/admin" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-base font-semibold text-navy-800 ${isActive ? 'bg-navy-100 text-navy-900' : 'bg-navy-50 hover:bg-navy-100'
                 } transition-colors">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">
+                    <div class="w-8 h-8 rounded-full bg-navy-800 text-white flex items-center justify-center font-bold text-sm">
                         ${initial}
                     </div>
                     <div>
                         <span class="block text-sm font-bold text-slate-800">${loggedAdmin.name}</span>
-                        <span class="block text-xxs text-emerald-650 uppercase font-semibold">Admin (Online)</span>
+                        <span class="block text-xxs text-navy-700 uppercase font-semibold">Admin (Online)</span>
                     </div>
                 </a>
             `;
@@ -1035,7 +1035,7 @@ function updateAdminNavHeader() {
         if (desktopContainer) {
             desktopContainer.innerHTML = `
                 <a href="#/admin" class="w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm group ${isActive
-                    ? 'bg-forest-50 border-forest-500 text-forest-800 ring-4 ring-forest-850/10'
+                    ? 'bg-navy-50 border-navy-500 text-navy-800 ring-4 ring-navy-850/10'
                     : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-600'
                 } border" title="Login Admin">
                     <i class="fa-solid fa-user text-base group-hover:scale-105 transition-transform"></i>
@@ -1044,7 +1044,7 @@ function updateAdminNavHeader() {
         }
         if (mobileContainer) {
             mobileContainer.innerHTML = `
-                <a href="#/admin" class="w-9 h-9 rounded-full flex items-center justify-center transition-all border ${isActive ? 'bg-forest-50 border-forest-500 text-forest-850' : 'bg-slate-100 border-slate-200 text-slate-650'
+                <a href="#/admin" class="w-9 h-9 rounded-full flex items-center justify-center transition-all border ${isActive ? 'bg-navy-50 border-navy-500 text-navy-850' : 'bg-slate-100 border-slate-200 text-slate-650'
                 }" title="Login Admin">
                     <i class="fa-solid fa-user text-sm"></i>
                 </a>
@@ -1052,9 +1052,9 @@ function updateAdminNavHeader() {
         }
         if (mobileMenuContainer) {
             mobileMenuContainer.innerHTML = `
-                <a href="#/admin" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${isActive ? 'bg-forest-50 text-forest-800 font-semibold' : 'text-slate-600 hover:bg-slate-50'
+                <a href="#/admin" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${isActive ? 'bg-navy-50 text-navy-800 font-semibold' : 'text-slate-600 hover:bg-slate-50'
                 }">
-                    <i class="fa-solid fa-user-shield text-lg w-5 ${isActive ? 'text-forest-800' : 'text-slate-400'}"></i>
+                    <i class="fa-solid fa-user-shield text-lg w-5 ${isActive ? 'text-navy-800' : 'text-slate-400'}"></i>
                     <span>Dashboard Admin</span>
                 </a>
             `;
@@ -1078,10 +1078,10 @@ function renderAdmin() {
             <div class="min-h-[500px] flex items-center justify-center px-4 py-12">
                 <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-3xl border border-slate-100 shadow-xl">
                     <div class="text-center">
-                        <div class="mx-auto w-12 h-12 bg-forest-800 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg">
+                        <div class="mx-auto w-12 h-12 bg-navy-800 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg">
                             <i class="fa-solid fa-lock text-xl"></i>
                         </div>
-                        <h2 class="text-3xl font-extrabold text-forest-800 font-serif">Login Administrator</h2>
+                        <h2 class="text-3xl font-extrabold text-navy-800 font-serif">Login Administrator</h2>
                         <p class="mt-2 text-sm text-slate-500">Gunakan akun admin yang terdaftar di database.</p>
                     </div>
 
@@ -1089,16 +1089,16 @@ function renderAdmin() {
                         <div class="space-y-4">
                             <div>
                                 <label for="login-email" class="block text-sm font-semibold text-slate-700 mb-1">Email Admin</label>
-                                <input type="email" id="login-email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700" placeholder="••••••••">
+                                <input type="email" id="login-email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700" placeholder="••••••••">
                             </div>
                             <div>
                                 <label for="login-password" class="block text-sm font-semibold text-slate-700 mb-1">Kata Sandi</label>
-                                <input type="password" id="login-password" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700" placeholder="••••••••">
+                                <input type="password" id="login-password" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700" placeholder="••••••••">
                             </div>
                         </div>
 
                         <div>
-                            <button type="submit" class="w-full bg-forest-800 hover:bg-forest-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2">
+                            <button type="submit" class="w-full bg-navy-800 hover:bg-navy-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2">
                                 <i class="fa-solid fa-right-to-bracket"></i>
                                 <span>Masuk ke Dashboard</span>
                             </button>
@@ -1121,37 +1121,37 @@ function renderAdmin() {
 
     container.innerHTML = `
         <div class="flex flex-col lg:flex-row min-h-[calc(100vh-5rem)]">
-            <aside class="w-full lg:w-64 bg-forest-900 text-emerald-50 flex-shrink-0 flex flex-col border-r border-forest-800">
-                <div class="p-6 border-b border-forest-800 flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-300 font-bold border border-emerald-400/30">
+            <aside class="w-full lg:w-64 bg-navy-900 text-slate-100 flex-shrink-0 flex flex-col border-r border-navy-800">
+                <div class="p-6 border-b border-navy-800 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-300 font-bold border border-sky-400/30">
                         ${loggedAdmin.name ? loggedAdmin.name.charAt(0).toUpperCase() : 'A'}
                     </div>
                     <div>
                         <span class="block text-sm font-bold text-white">${loggedAdmin.name}</span>
-                        <span class="block text-xxs text-emerald-300 tracking-wider uppercase font-semibold">${loggedAdmin.role}</span>
+                        <span class="block text-xxs text-sky-300 tracking-wider uppercase font-semibold">${loggedAdmin.role}</span>
                     </div>
                 </div>
 
                 <nav class="flex-grow p-4 space-y-1.5">
-                    <button onclick="switchAdminView('dashboard')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'dashboard' ? 'bg-emerald-500 text-forest-950 font-bold' : 'hover:bg-forest-800 text-emerald-100/80'
+                    <button onclick="switchAdminView('dashboard')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'dashboard' ? 'bg-sky-400 text-navy-950 font-bold shadow-md shadow-sky-400/20' : 'hover:bg-navy-800 text-blue-100/80'
         }">
                         <i class="fa-solid fa-chart-pie w-5"></i>
                         <span>Dashboard</span>
                     </button>
 
-                    <button onclick="switchAdminView('umkm')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'umkm' || activeAdminView === 'umkm-form' ? 'bg-emerald-500 text-forest-950 font-bold' : 'hover:bg-forest-800 text-emerald-100/80'
+                    <button onclick="switchAdminView('umkm')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'umkm' || activeAdminView === 'umkm-form' ? 'bg-sky-400 text-navy-950 font-bold shadow-md shadow-sky-400/20' : 'hover:bg-navy-800 text-blue-100/80'
         }">
                         <i class="fa-solid fa-store w-5"></i>
                         <span>Semua UMKM</span>
                     </button>
 
-                    <button onclick="switchAdminView('kategori')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'kategori' ? 'bg-emerald-500 text-forest-950 font-bold' : 'hover:bg-forest-800 text-emerald-100/80'
+                    <button onclick="switchAdminView('kategori')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'kategori' ? 'bg-sky-400 text-navy-950 font-bold shadow-md shadow-sky-400/20' : 'hover:bg-navy-800 text-blue-100/80'
         }">
                         <i class="fa-solid fa-tags w-5"></i>
                         <span>Kategori</span>
                     </button>
 
-                    <button onclick="switchAdminView('pengajuan')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'pengajuan' ? 'bg-emerald-500 text-forest-950 font-bold' : 'hover:bg-forest-800 text-emerald-100/80'
+                    <button onclick="switchAdminView('pengajuan')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeAdminView === 'pengajuan' ? 'bg-sky-400 text-navy-950 font-bold shadow-md shadow-sky-400/20' : 'hover:bg-navy-800 text-blue-100/80'
         }">
                         <i class="fa-solid fa-inbox w-5"></i>
                         <span>Kontak Masuk</span>
@@ -1159,7 +1159,7 @@ function renderAdmin() {
                     </button>
                 </nav>
 
-                <div class="p-4 border-t border-forest-800">
+                <div class="p-4 border-t border-navy-800">
                     <button onclick="logoutAdmin()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-rose-300 hover:bg-rose-500/10 transition-colors">
                         <i class="fa-solid fa-right-from-bracket w-5"></i>
                         <span>Keluar</span>
@@ -1227,7 +1227,7 @@ function renderAdminDashboard(el) {
                     <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Total UMKM</span>
                     <span class="block text-3xl font-bold text-slate-800">${umkms.length}</span>
                 </div>
-                <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-800">
+                <div class="w-12 h-12 bg-navy-50 rounded-xl flex items-center justify-center text-navy-800 border border-navy-100/50">
                     <i class="fa-solid fa-store text-xl"></i>
                 </div>
             </div>
@@ -1266,7 +1266,7 @@ function renderAdminDashboard(el) {
         <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-slate-800">Pengajuan Masuk Terbaru</h3>
-                <button onclick="switchAdminView('pengajuan')" class="text-xs font-bold text-forest-800 hover:underline">Lihat Semua Kontak</button>
+                <button onclick="switchAdminView('pengajuan')" class="text-xs font-bold text-navy-800 hover:underline">Lihat Semua Kontak</button>
             </div>
 
             <div class="overflow-x-auto">
@@ -1319,7 +1319,7 @@ function renderAdminUMKMList(el) {
                 <p class="text-slate-500">Kelola informasi pelaku UMKM Desa Pesaren langsung di Supabase.</p>
             </div>
 
-            <button onclick="openUMKMForm()" class="bg-forest-800 hover:bg-forest-700 text-white font-bold px-5 py-3 rounded-xl shadow-md transition-colors text-sm flex items-center space-x-2">
+            <button onclick="openUMKMForm()" class="bg-navy-800 hover:bg-navy-700 text-white font-bold px-5 py-3 rounded-xl shadow-md transition-colors text-sm flex items-center space-x-2">
                 <i class="fa-solid fa-plus text-xs"></i>
                 <span>Tambah UMKM Baru</span>
             </button>
@@ -1364,7 +1364,7 @@ function renderAdminUMKMList(el) {
                                         <td class="px-6 py-4 font-medium text-slate-600">${cat.nama_kategori}</td>
                                         <td class="px-6 py-4 font-medium text-slate-700">${u.pemilik}</td>
                                         <td class="px-6 py-4">
-                                            <span class="px-2 py-1 rounded text-xxs font-bold ${u.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'}">${u.status}</span>
+                                            <span class="px-2 py-1 rounded text-xxs font-bold ${u.status === 'Aktif' ? 'bg-navy-100 text-navy-850 border border-navy-200/50' : 'bg-slate-100 text-slate-600'}">${u.status}</span>
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex items-center justify-center space-x-2">
@@ -1461,11 +1461,11 @@ function renderAdminUMKMForm(el) {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="form-nama_umkm" class="block text-sm font-semibold text-slate-700 mb-1">Nama UMKM <span class="text-rose-500">*</span></label>
-                        <input type="text" id="form-nama_umkm" required value="${data.nama_umkm}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                        <input type="text" id="form-nama_umkm" required value="${data.nama_umkm}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                     </div>
                     <div>
                         <label for="form-kategori" class="block text-sm font-semibold text-slate-700 mb-1">Kategori UMKM <span class="text-rose-500">*</span></label>
-                        <select id="form-kategori" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 cursor-pointer">
+                        <select id="form-kategori" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 cursor-pointer">
                             <option value="">Pilih Kategori</option>
                             ${categories.map(c => `<option value="${c.id}" ${data.kategori_id == c.id ? 'selected' : ''}>${c.nama_kategori}</option>`).join('')}
                         </select>
@@ -1475,11 +1475,11 @@ function renderAdminUMKMForm(el) {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="form-pemilik" class="block text-sm font-semibold text-slate-700 mb-1">Nama Pemilik <span class="text-rose-500">*</span></label>
-                        <input type="text" id="form-pemilik" required value="${data.pemilik}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                        <input type="text" id="form-pemilik" required value="${data.pemilik}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                     </div>
                     <div>
                         <label for="form-status" class="block text-sm font-semibold text-slate-700 mb-1">Status Keaktifan</label>
-                        <select id="form-status" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 cursor-pointer">
+                        <select id="form-status" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 cursor-pointer">
                             <option value="Aktif" ${data.status === 'Aktif' ? 'selected' : ''}>Aktif (Muncul di Website)</option>
                             <option value="Tidak Aktif" ${data.status === 'Tidak Aktif' ? 'selected' : ''}>Tidak Aktif (Disembunyikan)</option>
                         </select>
@@ -1488,41 +1488,41 @@ function renderAdminUMKMForm(el) {
 
                 <div>
                     <label for="form-deskripsi" class="block text-sm font-semibold text-slate-700 mb-1">Deskripsi Ringkas Usaha <span class="text-rose-500">*</span></label>
-                    <textarea id="form-deskripsi" required rows="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">${data.deskripsi}</textarea>
+                    <textarea id="form-deskripsi" required rows="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">${data.deskripsi}</textarea>
                 </div>
 
                 <div class="border-t border-slate-100 pt-6">
-                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-share-nodes mr-2 text-forest-800"></i>Sosial Media & Kontak</h3>
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-share-nodes mr-2 text-navy-800"></i>Sosial Media & Kontak</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label for="form-whatsapp" class="block text-sm font-semibold text-slate-700 mb-1">Nomor WhatsApp Usaha</label>
-                            <input type="text" id="form-whatsapp" value="${socialLinks.WhatsApp}" placeholder="Contoh: 08123456789" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                            <input type="text" id="form-whatsapp" value="${socialLinks.WhatsApp}" placeholder="Contoh: 08123456789" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                         </div>
                         <div>
                             <label for="form-instagram" class="block text-sm font-semibold text-slate-700 mb-1">Link Instagram Usaha</label>
-                            <input type="text" id="form-instagram" value="${socialLinks.Instagram}" placeholder="Contoh: https://instagram.com/nama_umkm" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                            <input type="text" id="form-instagram" value="${socialLinks.Instagram}" placeholder="Contoh: https://instagram.com/nama_umkm" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="form-alamat" class="block text-sm font-semibold text-slate-700 mb-1">Alamat Lengkap Usaha <span class="text-rose-500">*</span></label>
-                            <input type="text" id="form-alamat" required value="${data.alamat}" placeholder="Desa Pesaren, Kec. Sukorejo, Kendal" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                            <input type="text" id="form-alamat" required value="${data.alamat}" placeholder="Desa Pesaren, Kec. Sukorejo, Kendal" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                         </div>
                         <div>
                             <label for="form-maps" class="block text-sm font-semibold text-slate-700 mb-1">Link / Iframe Google Maps</label>
-                            <input type="text" id="form-maps" value="${data.maps}" placeholder="https://maps.google.com/maps?q=..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                            <input type="text" id="form-maps" value="${data.maps}" placeholder="https://maps.google.com/maps?q=..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                         </div>
                     </div>
                 </div>
 
                 <div class="border-t border-slate-100 pt-6">
-                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center"><i class="fa-regular fa-image mr-2 text-forest-800"></i>Media Foto Unggahan</h3>
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center"><i class="fa-regular fa-image mr-2 text-navy-800"></i>Media Foto Unggahan</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Unggah File Logo UMKM</label>
-                            <input type="file" id="form-logo-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-800 file:text-white hover:file:bg-forest-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
+                            <input type="file" id="form-logo-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-navy-800 file:text-white hover:file:bg-navy-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
                             <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
                                 <img id="form-logo-preview" src="" class="w-14 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
                                 <span class="text-xs text-slate-500 font-medium">Pratinjau logo yang diunggah.</span>
@@ -1530,7 +1530,7 @@ function renderAdminUMKMForm(el) {
                         </div>
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Unggah File Foto Sampul</label>
-                            <input type="file" id="form-cover-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-forest-800 file:text-white hover:file:bg-forest-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
+                            <input type="file" id="form-cover-file" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-navy-800 file:text-white hover:file:bg-navy-700 transition-all cursor-pointer bg-white border border-slate-200 rounded-xl p-1 mb-3">
                             <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-200">
                                 <img id="form-cover-preview" src="" class="w-20 h-14 rounded-lg object-cover border border-slate-200 shadow-sm">
                                 <span class="text-xs text-slate-500 font-medium">Pratinjau foto sampul.</span>
@@ -1541,7 +1541,7 @@ function renderAdminUMKMForm(el) {
 
                 <div class="border-t border-slate-100 pt-6 flex justify-end space-x-4">
                     <button type="button" onclick="switchAdminView('umkm')" class="px-6 py-3 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl text-slate-750 font-semibold text-sm transition-colors">Batal</button>
-                    <button type="submit" id="btn-submit-umkm" class="px-8 py-3 bg-forest-800 hover:bg-forest-700 text-white rounded-xl font-bold text-sm shadow-md transition-colors">Simpan Profil UMKM</button>
+                    <button type="submit" id="btn-submit-umkm" class="px-8 py-3 bg-navy-800 hover:bg-navy-700 text-white rounded-xl font-bold text-sm shadow-md transition-colors">Simpan Profil UMKM</button>
                 </div>
             </form>
         </div>
@@ -1704,7 +1704,7 @@ function renderAdminUMKMForm(el) {
             }
 
             await reloadCache();
-            showToast(isEdit ? 'Profil UMKM berhasil diperbarui di Supabase.' : 'Profil UMKM baru & produk otomatis berhasil dibuat!');
+            showToast(isEdit ? 'Profil UMKM berhasil diperbarui di database' : 'Profil UMKM baru & produk otomatis berhasil dibuat!');
             switchAdminView('umkm');
         } catch (err) {
             console.error(err);
@@ -1728,11 +1728,11 @@ function renderAdminProductsList(el) {
 
     el.innerHTML = `
         <div class="mb-8">
-            <button onclick="switchAdminView('umkm')" class="text-xs font-semibold text-forest-800 hover:underline mb-2 flex items-center space-x-1">
+            <button onclick="switchAdminView('umkm')" class="text-xs font-semibold text-navy-800 hover:underline mb-2 flex items-center space-x-1">
                 <i class="fa-solid fa-arrow-left"></i>
                 <span>Kembali ke Daftar UMKM</span>
             </button>
-            <h1 class="text-3xl font-bold text-slate-800">Manajemen Produk: <span class="text-forest-800">${umkm.nama_umkm}</span></h1>
+            <h1 class="text-3xl font-bold text-slate-800">Manajemen Produk: <span class="text-navy-800">${umkm.nama_umkm}</span></h1>
             <p class="text-slate-500">Kelola katalog produk yang dipromosikan untuk usaha ini.</p>
         </div>
 
@@ -1744,20 +1744,20 @@ function renderAdminProductsList(el) {
                     <input type="hidden" id="form-product-id" value="">
                     <div>
                         <label for="form-product-nama" class="block text-sm font-semibold text-slate-750 mb-1">Nama Produk <span class="text-rose-500">*</span></label>
-                        <input type="text" id="form-product-nama" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm">
+                        <input type="text" id="form-product-nama" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm">
                     </div>
                     <div>
                         <label for="form-product-harga" class="block text-sm font-semibold text-slate-750 mb-1">Harga (Rp) <span class="text-rose-500">*</span></label>
-                        <input type="number" id="form-product-harga" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm">
+                        <input type="number" id="form-product-harga" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label for="form-product-stok" class="block text-sm font-semibold text-slate-750 mb-1">Stok <span class="text-rose-500">*</span></label>
-                            <input type="number" id="form-product-stok" required value="10" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm">
+                            <input type="number" id="form-product-stok" required value="10" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm">
                         </div>
                         <div>
                             <label for="form-product-status" class="block text-sm font-semibold text-slate-750 mb-1">Status</label>
-                            <select id="form-product-status" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm">
+                            <select id="form-product-status" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm">
                                 <option value="Aktif">Aktif</option>
                                 <option value="Tidak Aktif">Tidak Aktif</option>
                             </select>
@@ -1773,12 +1773,12 @@ function renderAdminProductsList(el) {
                     </div>
                     <div>
                         <label for="form-product-deskripsi" class="block text-sm font-semibold text-slate-750 mb-1">Deskripsi Singkat</label>
-                        <textarea id="form-product-deskripsi" rows="3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm"></textarea>
+                        <textarea id="form-product-deskripsi" rows="3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm"></textarea>
                     </div>
 
                     <div class="pt-4 flex items-center justify-end space-x-2">
                         <button type="button" onclick="cancelProductEdit()" id="btn-product-cancel" class="hidden px-4 py-2 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl text-slate-750 font-semibold text-xs transition-colors">Batal</button>
-                        <button type="submit" id="btn-product-submit" class="px-6 py-2.5 bg-forest-800 hover:bg-forest-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Simpan Produk</button>
+                        <button type="submit" id="btn-product-submit" class="px-6 py-2.5 bg-navy-800 hover:bg-navy-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Simpan Produk</button>
                     </div>
                 </form>
             </div>
@@ -1813,10 +1813,10 @@ function renderAdminProductsList(el) {
                                                 <span class="block font-bold text-slate-800">${p.nama_produk}</span>
                                                 <span class="block text-xxs text-slate-400 line-clamp-1">${p.deskripsi || ''}</span>
                                             </td>
-                                            <td class="px-4 py-3 text-right font-bold text-emerald-800">Rp ${Number(p.harga).toLocaleString('id-ID')}</td>
+                                            <td class="px-4 py-3 text-right font-bold text-navy-800">Rp ${Number(p.harga).toLocaleString('id-ID')}</td>
                                             <td class="px-4 py-3 text-center">${p.stok}</td>
                                             <td class="px-4 py-3 text-center">
-                                                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${p.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'}">${p.status}</span>
+                                                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${p.status === 'Aktif' ? 'bg-navy-100 text-navy-850 border border-navy-200/50' : 'bg-slate-100 text-slate-600'}">${p.status}</span>
                                             </td>
                                             <td class="px-4 py-3 text-center">
                                                 <div class="flex items-center justify-center space-x-1">
@@ -1992,16 +1992,16 @@ function renderAdminKategoriList(el) {
                     <input type="hidden" id="form-category-id" value="">
                     <div>
                         <label for="form-category-nama" class="block text-sm font-semibold text-slate-750 mb-1">Nama Kategori <span class="text-rose-500">*</span></label>
-                        <input type="text" id="form-category-nama" required placeholder="Contoh: Makanan Olahan" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm">
+                        <input type="text" id="form-category-nama" required placeholder="Contoh: Makanan Olahan" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm">
                     </div>
                     <div>
                         <label for="form-category-icon" class="block text-sm font-semibold text-slate-750 mb-1">FontAwesome Icon Class <span class="text-rose-500">*</span></label>
-                        <input type="text" id="form-category-icon" required value="fa-circle" placeholder="Contoh: fa-utensils" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 text-sm">
+                        <input type="text" id="form-category-icon" required value="fa-circle" placeholder="Contoh: fa-utensils" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 text-sm">
                     </div>
 
                     <div class="pt-4 flex items-center justify-end space-x-2">
                         <button type="button" onclick="cancelCategoryEdit()" id="btn-category-cancel" class="hidden px-4 py-2 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl text-slate-755 font-semibold text-xs transition-colors">Batal</button>
-                        <button type="submit" class="px-6 py-2.5 bg-forest-800 hover:bg-forest-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Simpan Kategori</button>
+                        <button type="submit" class="px-6 py-2.5 bg-navy-800 hover:bg-navy-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Simpan Kategori</button>
                     </div>
                 </form>
             </div>
@@ -2024,7 +2024,7 @@ function renderAdminKategoriList(el) {
                                     <tr>
                                         <td class="px-6 py-4 font-semibold text-slate-400">${index + 1}</td>
                                         <td class="px-6 py-4 text-center">
-                                            <span class="inline-flex w-10 h-10 rounded-lg bg-emerald-50 text-emerald-800 items-center justify-center border border-emerald-100">
+                                            <span class="inline-flex w-10 h-10 rounded-lg bg-navy-50 text-navy-800 items-center justify-center border border-navy-100/50">
                                                 <i class="fa-solid ${c.icon}"></i>
                                             </span>
                                         </td>
@@ -2169,18 +2169,18 @@ function renderAdminPengajuanList(el) {
                                     <td class="px-6 py-4">
                                         <span class="block font-bold text-slate-850">${p.nama_pengaju}</span>
                                         <span class="block text-xs text-slate-450">${p.email}</span>
-                                        <a href="https://wa.me/${(p.no_hp || '').replace(/[^0-9]/g, '')}" target="_blank" class="inline-flex items-center text-xxs font-semibold text-emerald-600 mt-1 hover:underline">
+                                        <a href="https://wa.me/${(p.no_hp || '').replace(/[^0-9]/g, '')}" target="_blank" class="inline-flex items-center text-xxs font-semibold text-navy-800 mt-1 hover:underline">
                                             <i class="fa-brands fa-whatsapp mr-1 text-[10px]"></i> Hubungi WA
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="inline-block px-2.5 py-1 rounded-full text-xxs font-semibold ${p.jenis === 'Tambah UMKM' ? 'bg-forest-50 text-forest-800 border border-forest-100' : 'bg-slate-100 text-slate-650'}">${p.jenis}</span>
+                                        <span class="inline-block px-2.5 py-1 rounded-full text-xxs font-semibold ${p.jenis === 'Tambah UMKM' ? 'bg-navy-50 text-navy-800 border border-navy-100' : 'bg-slate-100 text-slate-650'}">${p.jenis}</span>
                                     </td>
                                     <td class="px-6 py-4 max-w-sm">
                                         <p class="whitespace-pre-line text-xs leading-relaxed text-slate-600">${p.pesan}</p>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <select onchange="updatePengajuanStatus(${p.id}, this.value)" class="px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-forest-800 bg-white cursor-pointer">
+                                        <select onchange="updatePengajuanStatus(${p.id}, this.value)" class="px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-navy-800 bg-white cursor-pointer">
                                             <option value="Menunggu" ${p.status === 'Menunggu' ? 'selected' : ''}>Menunggu</option>
                                             <option value="Diproses" ${p.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
                                             <option value="Selesai" ${p.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
@@ -2235,7 +2235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (grid) {
         grid.innerHTML = `
             <div class="col-span-full py-12 flex flex-col items-center justify-center text-center">
-                <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-forest-800 mb-3"></div>
+                <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-navy-800 mb-3"></div>
                 <p class="text-sm text-slate-500">Memuat data dari Supabase...</p>
             </div>
         `;

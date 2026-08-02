@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
 
 :root {
-    --primary: #1e3f20; /* Dark forest green */
-    --primary-light: #2d5a30;
-    --accent: #86efac; /* Light mint green */
-    --bg-base: #f8fafc;
+    --primary: #0f2d6b; /* Deep Navy Blue */
+    --primary-light: #1b37b8;
+    --accent: #89adfc;  /* Light steel blue */
+    --bg-base: #f0f4ff;
     --font-sans: 'Inter', sans-serif;
     --font-serif: 'Playfair Display', serif;
 }
@@ -39,14 +39,14 @@ h1, h2, h3, .serif-font {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+    box-shadow: 0 8px 32px 0 rgba(15, 45, 107, 0.06);
 }
 
 .glass-nav {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(241, 245, 249, 0.8);
+    border-bottom: 1px solid rgba(220, 231, 255, 0.8);
 }
 
 /* Custom Scrollbar */
@@ -56,16 +56,16 @@ h1, h2, h3, .serif-font {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #dce7ff;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #89adfc;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #5a84f8;
 }
 
 /* Interactive card hover */
@@ -74,12 +74,12 @@ h1, h2, h3, .serif-font {
 }
 .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px -10px rgba(30, 63, 32, 0.15);
+    box-shadow: 0 12px 24px -10px rgba(15, 45, 107, 0.18);
 }
 
 /* Hero Overlay */
 .hero-overlay {
-    background: linear-gradient(180deg, rgba(30, 63, 32, 0.85) 0%, rgba(15, 32, 16, 0.95) 100%);
+    background: linear-gradient(180deg, rgba(15, 45, 107, 0.88) 0%, rgba(8, 26, 69, 0.96) 100%);
 }
 
 /* Hide route container helper */
@@ -89,8 +89,8 @@ h1, h2, h3, .serif-font {
 
 /* Custom Badge Colors */
 .badge-aktif {
-    background-color: #dcfce7;
-    color: #15803d;
+    background-color: #dce7ff;
+    color: #1b37b8;
 }
 
 .badge-tidak-aktif {

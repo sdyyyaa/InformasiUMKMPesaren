@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PESONA - Media Informasi & Promosi UMKM Desa Pesaren</title>
     <meta name="description"
-        content="Portal Resmi Media Informasi dan Promosi UMKM Desa Pesaren, Kabupaten Pati. Temukan produk lokal unggulan mulai dari makanan, fashion, hingga kerajinan tangan.">
+        content="Portal Resmi Media Informasi dan Promosi UMKM Desa Pesaren, Kecamatan Sukorejo, Kabupaten Kendal. Temukan produk lokal unggulan mulai dari makanan, fashion, hingga kerajinan tangan.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -14,17 +14,18 @@
             theme: {
                 extend: {
                     colors: {
-                        forest: {
-                            50: '#f2f7f2',
-                            100: '#e1ede1',
-                            200: '#c2dac5',
-                            300: '#94be9a',
-                            400: '#639b6b',
-                            500: '#467d4e',
-                            600: '#35633c',
-                            700: '#2b5031',
-                            800: '#1e3f20', // Primary Green
-                            900: '#152d17',
+                        navy: {
+                            50:  '#f0f4ff',
+                            100: '#dce7ff',
+                            200: '#b9cffe',
+                            300: '#89adfc',
+                            400: '#5a84f8',
+                            500: '#3560ef',
+                            600: '#2347d8',
+                            700: '#1b37b8',
+                            800: '#0f2d6b', // Primary Navy
+                            850: '#0c2459',
+                            900: '#081a45',
                         }
                     },
                     fontFamily: {
@@ -51,11 +52,11 @@
                 <!-- Brand logo/name -->
                 <a href="#/beranda" class="flex items-center space-x-3 group">
                     <div
-                        class="w-10 h-10 rounded-xl bg-forest-800 flex items-center justify-center text-white shadow-md shadow-forest-800/20 group-hover:scale-105 transition-transform">
+                        class="w-10 h-10 rounded-xl bg-navy-800 flex items-center justify-center text-white shadow-md shadow-navy-800/20 group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-seedling text-lg"></i>
                     </div>
                     <div>
-                        <span class="block text-lg font-bold text-forest-800 tracking-tight leading-tight">PESONA</span>
+                        <span class="block text-lg font-extrabold text-navy-800 tracking-tight leading-tight">PESONA</span>
                         <span
                             class="block text-xs font-semibold text-slate-500 uppercase tracking-widest leading-none">Desa
                             Pesaren</span>
@@ -65,13 +66,13 @@
                 <!-- Desktop navigation links -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#/beranda"
-                        class="nav-link text-slate-700 hover:text-forest-800 font-medium transition-colors py-2 border-b-2 border-transparent"
+                        class="nav-link text-slate-700 hover:text-navy-800 font-medium transition-colors py-2 border-b-2 border-transparent"
                         id="nav-beranda">Beranda</a>
                     <a href="#/umkm"
-                        class="nav-link text-slate-700 hover:text-forest-800 font-medium transition-colors py-2 border-b-2 border-transparent"
+                        class="nav-link text-slate-700 hover:text-navy-800 font-medium transition-colors py-2 border-b-2 border-transparent"
                         id="nav-umkm">Profil UMKM</a>
                     <a href="#/kontak"
-                        class="nav-link text-slate-700 hover:text-forest-800 font-medium transition-colors py-2 border-b-2 border-transparent"
+                        class="nav-link text-slate-700 hover:text-navy-800 font-medium transition-colors py-2 border-b-2 border-transparent"
                         id="nav-kontak">Narahubung</a>
 
                     <!-- Divider -->
@@ -79,7 +80,7 @@
 
                     <!-- CTA button -->
                     <a href="#/kontak"
-                        class="bg-forest-800 hover:bg-forest-700 text-white font-medium px-5 py-2.5 rounded-xl shadow-lg shadow-forest-800/10 hover:shadow-forest-800/20 transition-all text-sm tracking-wide">
+                        class="bg-navy-800 hover:bg-navy-700 text-white font-medium px-5 py-2.5 rounded-xl shadow-lg shadow-navy-800/10 hover:shadow-navy-800/20 transition-all text-sm tracking-wide">
                         Hubungi Kami
                     </a>
 
@@ -117,23 +118,23 @@
             class="hidden md:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md transition-all duration-300">
             <div class="px-4 pt-2 pb-6 space-y-3">
                 <a href="#/beranda"
-                    class="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-forest-800 transition-colors">Beranda</a>
+                    class="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-navy-800 transition-colors">Beranda</a>
                 <a href="#/umkm"
-                    class="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-forest-800 transition-colors">Profil
+                    class="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-navy-800 transition-colors">Profil
                     UMKM</a>
                 <a href="#/kontak"
-                    class="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-forest-800 transition-colors">Narahubung</a>
+                    class="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-navy-800 transition-colors">Narahubung</a>
                 <div class="border-t border-slate-100 my-2 pt-2"></div>
                 <!-- Admin Profile Container (Mobile Menu) -->
                 <div id="mobile-menu-admin-container">
                     <a href="#/admin"
-                        class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-forest-800 transition-colors">
+                        class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-navy-800 transition-colors">
                         <i class="fa-solid fa-user-shield text-lg w-5 text-slate-400"></i>
                         <span>Dashboard Admin</span>
                     </a>
                 </div>
                 <a href="#/kontak"
-                    class="block text-center bg-forest-800 hover:bg-forest-700 text-white font-medium px-4 py-3 rounded-xl shadow-md transition-colors text-sm">
+                    class="block text-center bg-navy-800 hover:bg-navy-700 text-white font-medium px-4 py-3 rounded-xl shadow-md transition-colors text-sm">
                     Hubungi Kami
                 </a>
             </div>
@@ -153,22 +154,22 @@
                 <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-white z-10">
                     <div class="max-w-3xl">
                         <span
-                            class="inline-flex items-center space-x-2 bg-emerald-500/20 text-emerald-300 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-6 border border-emerald-400/20">
+                            class="inline-flex items-center space-x-2 bg-sky-400/20 text-sky-200 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-6 border border-sky-400/30">
                             <i class="fa-solid fa-sparkles text-[10px]"></i>
                             <span>Portal Informasi UMKM</span>
                         </span>
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
                             PESONA <br>
-                            <span class="text-emerald-300 text-3xl sm:text-4xl lg:text-5xl font-normal italic">Media
+                            <span class="text-sky-200 text-3xl sm:text-4xl lg:text-5xl font-normal italic">Media
                                 Informasi UMKM Desa Pesaren</span>
                         </h1>
-                        <p class="text-lg sm:text-xl text-emerald-50/90 font-light mb-8 max-w-2xl leading-relaxed">
+                        <p class="text-lg sm:text-xl text-blue-50/90 font-light mb-8 max-w-2xl leading-relaxed">
                             Wadah informasi dan promosi UMKM lokal untuk mendukung pertumbuhan ekonomi desa dan
                             memperluas jangkauan peluang usaha pelaku usaha di Desa Pesaren.
                         </p>
                         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                             <a href="#/umkm"
-                                class="bg-emerald-400 hover:bg-emerald-300 text-forest-900 font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-emerald-400/20 transition-all text-center tracking-wide">
+                                class="bg-sky-400 hover:bg-sky-300 text-navy-900 font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-sky-400/30 transition-all text-center tracking-wide">
                                 Jelajahi UMKM
                             </a>
                             <a href="#/kontak"
@@ -184,8 +185,8 @@
             <section class="py-16 sm:py-24 bg-white">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-16">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-forest-800 mb-4">Tujuan PESONA</h2>
-                        <div class="w-16 h-1 bg-emerald-500 mx-auto rounded-full mb-4"></div>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-navy-800 mb-4">Tujuan PESONA</h2>
+                        <div class="w-16 h-1 bg-navy-800 mx-auto rounded-full mb-4"></div>
                         <p class="text-slate-600">Komitmen kami untuk memberdayakan dan memajukan seluruh potensi produk
                             lokal Desa Pesaren.</p>
                     </div>
@@ -195,10 +196,10 @@
                         <div
                             class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover-lift flex flex-col items-center text-center">
                             <div
-                                class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-800 mb-6">
-                                <i class="fa-solid fa-database text-2xl"></i>
+                                class="w-14 h-14 bg-navy-100 rounded-xl flex items-center justify-center text-navy-800 mb-6 shadow-sm">
+                                <i class="fa-solid fa-database text-2xl text-navy-800"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-forest-800 mb-3">Informasi Terpusat</h3>
+                            <h3 class="text-xl font-bold text-navy-800 mb-3">Informasi Terpusat</h3>
                             <p class="text-slate-500 text-sm leading-relaxed">Menyediakan informasi lengkap tentang UMKM
                                 yang ada di Desa Pesaren secara terstruktur dan mudah diakses.</p>
                         </div>
@@ -206,10 +207,10 @@
                         <div
                             class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover-lift flex flex-col items-center text-center">
                             <div
-                                class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-800 mb-6">
-                                <i class="fa-solid fa-bullhorn text-2xl"></i>
+                                class="w-14 h-14 bg-navy-100 rounded-xl flex items-center justify-center text-navy-800 mb-6 shadow-sm">
+                                <i class="fa-solid fa-bullhorn text-2xl text-navy-800"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-forest-800 mb-3">Promosi Digital</h3>
+                            <h3 class="text-xl font-bold text-navy-800 mb-3">Promosi Digital</h3>
                             <p class="text-slate-500 text-sm leading-relaxed">Membantu UMKM lokal dalam memperluas
                                 jangkauan promosi secara digital melalui internet secara luas.</p>
                         </div>
@@ -217,10 +218,10 @@
                         <div
                             class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover-lift flex flex-col items-center text-center">
                             <div
-                                class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-800 mb-6">
-                                <i class="fa-solid fa-chart-line text-2xl"></i>
+                                class="w-14 h-14 bg-navy-100 rounded-xl flex items-center justify-center text-navy-800 mb-6 shadow-sm">
+                                <i class="fa-solid fa-chart-line text-2xl text-navy-800"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-forest-800 mb-3">Meningkatkan Ekonomi</h3>
+                            <h3 class="text-xl font-bold text-navy-800 mb-3">Meningkatkan Ekonomi</h3>
                             <p class="text-slate-500 text-sm leading-relaxed">Mendorong pertumbuhan ekonomi desa melalui
                                 pemberdayaan UMKM lokal dan menggerakkan transaksi lokal.</p>
                         </div>
@@ -228,10 +229,10 @@
                         <div
                             class="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover-lift flex flex-col items-center text-center">
                             <div
-                                class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-800 mb-6">
-                                <i class="fa-solid fa-handshake text-2xl"></i>
+                                class="w-14 h-14 bg-navy-100 rounded-xl flex items-center justify-center text-navy-800 mb-6 shadow-sm">
+                                <i class="fa-solid fa-handshake text-2xl text-navy-800"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-forest-800 mb-3">Kolaborasi & Sinergi</h3>
+                            <h3 class="text-xl font-bold text-navy-800 mb-3">Kolaborasi & Sinergi</h3>
                             <p class="text-slate-500 text-sm leading-relaxed">Membangun kolaborasi antara pelaku UMKM,
                                 masyarakat, pihak desa, dan mitra usaha luar daerah.</p>
                         </div>
@@ -244,13 +245,13 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
                         <div>
-                            <h2 class="text-3xl sm:text-4xl font-bold text-forest-800 mb-4">UMKM Unggulan Desa Pesaren
+                            <h2 class="text-3xl sm:text-4xl font-bold text-navy-800 mb-4">UMKM Unggulan Desa Pesaren
                             </h2>
                             <p class="text-slate-600 max-w-xl">Temukan berbagai produk dan layanan terbaik dari pelaku
                                 UMKM lokal terkemuka di desa kami.</p>
                         </div>
                         <a href="#/umkm"
-                            class="mt-4 sm:mt-0 inline-flex items-center space-x-2 text-forest-800 hover:text-forest-700 font-bold border-b-2 border-forest-800 py-1 transition-colors">
+                            class="mt-4 sm:mt-0 inline-flex items-center space-x-2 text-navy-800 hover:text-navy-700 font-bold border-b-2 border-navy-800 py-1 transition-colors">
                             <span>Lihat Semua UMKM</span>
                             <i class="fa-solid fa-arrow-right text-sm"></i>
                         </a>
@@ -267,7 +268,7 @@
         <!-- 2. PAGE: DAFTAR UMKM (LIST) -->
         <div id="page-umkm-list" class="page-container hidden-page max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="text-center max-w-3xl mx-auto mb-12">
-                <h1 class="text-3xl sm:text-4xl font-bold text-forest-800 mb-3">Profil UMKM Desa Pesaren</h1>
+                <h1 class="text-3xl sm:text-4xl font-bold text-navy-800 mb-3">Profil UMKM Desa Pesaren</h1>
                 <p class="text-slate-600">Daftar lengkap UMKM yang ada di Desa Pesaren. Cari, saring, dan dukung usaha
                     lokal kami.</p>
             </div>
@@ -278,13 +279,13 @@
                 <div class="relative w-full md:flex-grow">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
                     <input type="text" id="umkm-search" placeholder="Cari nama UMKM atau produk..."
-                        class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                        class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                 </div>
                 <!-- Category Filter Dropdown -->
                 <div class="relative w-full md:w-64">
                     <i class="fa-solid fa-filter absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
                     <select id="umkm-category-filter"
-                        class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 appearance-none cursor-pointer">
+                        class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 appearance-none cursor-pointer">
                         <option value="">Semua Kategori</option>
                         <!-- Loaded dynamically -->
                     </select>
@@ -309,9 +310,9 @@
             <!-- Breadcrumbs -->
             <nav class="flex text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2">
-                    <li><a href="#/beranda" class="hover:text-forest-800 transition-colors">Beranda</a></li>
+                    <li><a href="#/beranda" class="hover:text-navy-800 transition-colors">Beranda</a></li>
                     <li><i class="fa-solid fa-chevron-right text-xs text-slate-350"></i></li>
-                    <li><a href="#/umkm" class="hover:text-forest-800 transition-colors">Profil UMKM</a></li>
+                    <li><a href="#/umkm" class="hover:text-navy-800 transition-colors">Profil UMKM</a></li>
                     <li><i class="fa-solid fa-chevron-right text-xs text-slate-350"></i></li>
                     <li class="font-semibold text-slate-800 truncate" id="detail-breadcrumb-title">Detail UMKM</li>
                 </ol>
@@ -326,7 +327,7 @@
         <!-- 4. PAGE: NARAHUBUNG -->
         <div id="page-kontak" class="page-container hidden-page max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h1 class="text-3xl sm:text-4xl font-bold text-forest-800 mb-3">Hubungi Kami</h1>
+                <h1 class="text-3xl sm:text-4xl font-bold text-navy-800 mb-3">Hubungi Kami</h1>
                 <p class="text-slate-600">Untuk informasi, saran, atau permintaan penambahan/edit data UMKM, silakan
                     hubungi kontak resmi kami atau kirim pesan melalui form berikut.</p>
             </div>
@@ -335,38 +336,38 @@
                 <!-- Left Side: Contact Information Cards -->
                 <div class="lg:col-span-1 space-y-6">
                     <!-- WhatsApp -->
-                    <div class="p-6 bg-white border border-slate-100 rounded-2xl flex items-start space-x-4 shadow-sm">
+                    <div class="p-6 bg-white border border-slate-100 rounded-2xl flex items-start space-x-4 shadow-sm hover-lift">
                         <div
-                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 flex-shrink-0">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 border border-emerald-100/50 flex-shrink-0">
+                            <i class="fa-brands fa-whatsapp text-2xl text-emerald-600"></i>
                         </div>
                         <div>
                             <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">WhatsApp
                                 Admin</h3>
                             <a href="https://wa.me/6281234567890" target="_blank"
-                                class="text-lg font-bold text-forest-800 hover:underline">0812-3456-7890</a>
+                                class="text-lg font-bold text-navy-800 hover:underline">0812-3456-7890</a>
                             <p class="text-xs text-slate-400 mt-1">Respon cepat di jam kerja (08:00 - 16:00 WIB)</p>
                         </div>
                     </div>
                     <!-- Email -->
-                    <div class="p-6 bg-white border border-slate-100 rounded-2xl flex items-start space-x-4 shadow-sm">
+                    <div class="p-6 bg-white border border-slate-100 rounded-2xl flex items-start space-x-4 shadow-sm hover-lift">
                         <div
-                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 flex-shrink-0">
-                            <i class="fa-regular fa-envelope text-2xl"></i>
+                            class="w-12 h-12 bg-navy-50 rounded-xl flex items-center justify-center text-navy-800 border border-navy-100/50 flex-shrink-0">
+                            <i class="fa-regular fa-envelope text-2xl text-navy-800"></i>
                         </div>
                         <div>
                             <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Email Resmi
                             </h3>
                             <a href="mailto:giat16desapesaren@gmail.com"
-                                class="text-lg font-bold text-forest-800 hover:underline">giat16desapesaren@gmail.com</a>
+                                class="text-lg font-bold text-navy-800 hover:underline">giat16desapesaren@gmail.com</a>
                             <p class="text-xs text-slate-400 mt-1">Kirimkan berkas atau proposal kerjasama</p>
                         </div>
                     </div>
                     <!-- Address -->
-                    <div class="p-6 bg-white border border-slate-100 rounded-2xl flex items-start space-x-4 shadow-sm">
+                    <div class="p-6 bg-white border border-slate-100 rounded-2xl flex items-start space-x-4 shadow-sm hover-lift">
                         <div
-                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 flex-shrink-0">
-                            <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                            class="w-12 h-12 bg-navy-50 rounded-xl flex items-center justify-center text-navy-800 border border-navy-100/50 flex-shrink-0">
+                            <i class="fa-solid fa-map-location-dot text-2xl text-navy-800"></i>
                         </div>
                         <div>
                             <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Kantor Desa
@@ -380,20 +381,20 @@
                 <!-- Right Side: Contact / Request Form -->
                 <div
                     class="lg:col-span-2 bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-100/50">
-                    <h2 class="text-2xl font-bold text-forest-800 mb-6">Kirim Pesan & Pengajuan</h2>
+                    <h2 class="text-2xl font-bold text-navy-800 mb-6">Kirim Pesan & Pengajuan</h2>
                     <form id="form-pengajuan" class="space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label for="input-nama" class="block text-sm font-semibold text-slate-750 mb-2">Nama
                                     Lengkap</label>
                                 <input type="text" id="input-nama" required
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                             </div>
                             <div>
                                 <label for="input-email"
                                     class="block text-sm font-semibold text-slate-750 mb-2">Email</label>
                                 <input type="email" id="input-email" required
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700">
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -401,14 +402,14 @@
                                 <label for="input-no_hp" class="block text-sm font-semibold text-slate-750 mb-2">Nomor
                                     HP / WhatsApp</label>
                                 <input type="text" id="input-no_hp" required
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700"
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700"
                                     placeholder="0812xxxxxx">
                             </div>
                             <div>
                                 <label for="input-jenis" class="block text-sm font-semibold text-slate-750 mb-2">Jenis
                                     Pengajuan</label>
                                 <select id="input-jenis" required
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700 appearance-none cursor-pointer">
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700 appearance-none cursor-pointer">
                                     <option value="Tambah UMKM">Pengajuan Tambah UMKM</option>
                                     <option value="Edit Data">Pengajuan Edit Data UMKM</option>
                                     <option value="Lainnya">Lainnya (Pertanyaan/Saran)</option>
@@ -419,11 +420,11 @@
                             <label for="input-pesan" class="block text-sm font-semibold text-slate-750 mb-2">Pesan
                                 Lengkap</label>
                             <textarea id="input-pesan" required rows="5"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-slate-700"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700"
                                 placeholder="Tulis rincian pesan atau deskripsi singkat usaha yang ingin ditambahkan..."></textarea>
                         </div>
                         <button type="submit"
-                            class="w-full bg-forest-800 hover:bg-forest-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-forest-800/20 transition-all flex items-center justify-center space-x-2">
+                            class="w-full bg-navy-800 hover:bg-navy-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-navy-800/20 transition-all flex items-center justify-center space-x-2">
                             <i class="fa-regular fa-paper-plane"></i>
                             <span>Kirim Pesan Pengajuan</span>
                         </button>
@@ -442,28 +443,40 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-forest-900 text-emerald-50 border-t border-forest-800 mt-auto">
+    <footer class="bg-navy-900 text-slate-100 border-t border-navy-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
                 <!-- Info Column -->
                 <div class="md:col-span-2">
-                    <div class="flex items-center space-x-3 mb-6">
+                    <div class="flex items-center space-x-3 mb-4">
                         <div
-                            class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-forest-900 shadow-md shadow-emerald-500/20">
-                            <i class="fa-solid fa-seedling text-lg"></i>
+                            class="w-10 h-10 rounded-xl bg-navy-800 border border-sky-400/30 flex items-center justify-center text-white shadow-md shadow-navy-800/40 flex-shrink-0">
+                            <i class="fa-solid fa-seedling text-lg text-sky-400"></i>
                         </div>
-                        <span class="text-xl font-bold tracking-tight text-white font-serif">PESONA Desa Pesaren</span>
+                        <div>
+                            <span class="block text-xl font-extrabold text-white tracking-tight leading-tight">PESONA</span>
+                            <span class="block text-xs font-semibold text-sky-200/80 uppercase tracking-widest leading-none">Desa Pesaren</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-emerald-100/70 max-w-md leading-relaxed mb-4">
+                    <p class="text-sm text-blue-100/70 max-w-md leading-relaxed mb-6">
                         Portal Media Informasi dan Promosi UMKM Desa Pesaren, Sukorejo, Kendal. Memajukan ekonomi
                         kerakyatan melalui digitalisasi produk lokal.
                     </p>
-                    <div
-                        class="mb-4 inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold tracking-wide uppercase shadow-sm">
-                        <i class="fa-solid fa-graduation-cap text-sm text-emerald-400"></i>
-                        <span>KKN UNNES 2026</span>
+                    
+                    <!-- KKN Badge with White Background Logo & Matching Header Typography -->
+                    <div class="mb-5 inline-flex items-center space-x-3 bg-navy-800/90 border border-navy-700/80 p-2 pr-4 rounded-2xl shadow-lg backdrop-blur-sm">
+                        <!-- Logo KKN dengan Latar Belakang Putih -->
+                        <div class="bg-white p-1.5 rounded-xl shadow-inner flex items-center justify-center h-11 w-11 border border-slate-100 flex-shrink-0">
+                            <img src="kkn-logo.png" alt="Logo KKN UNNES 2026" class="h-full w-full object-contain">
+                        </div>
+                        <!-- Tulisan KKN UNNES 2026 disamakan font & warnanya dengan Logo PESONA Desa Pesaren atasnya -->
+                        <div class="flex flex-col">
+                            <span class="block text-base font-extrabold text-white tracking-tight leading-tight">KKN UNNES 2026</span>
+                            <span class="block text-[10px] font-semibold text-sky-300 uppercase tracking-widest leading-none mt-0.5">UNNES GIAT 16 DESA PESAREN</span>
+                        </div>
                     </div>
-                    <p class="text-xs text-emerald-100/50">
+
+                    <p class="text-xs text-blue-100/50">
                         &copy; 2026 PESONA - Media Informasi UMKM Desa Pesaren. All rights reserved.
                     </p>
                 </div>
@@ -471,11 +484,11 @@
                 <!-- Menu Column -->
                 <div>
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-6">Menu Cepat</h3>
-                    <ul class="space-y-4 text-sm text-emerald-100/70">
-                        <li><a href="#/beranda" class="hover:text-emerald-300 transition-colors">Beranda</a></li>
-                        <li><a href="#/umkm" class="hover:text-emerald-300 transition-colors">Profil UMKM</a></li>
-                        <li><a href="#/kontak" class="hover:text-emerald-300 transition-colors">Narahubung</a></li>
-                        <li><a href="#/admin" class="hover:text-emerald-300 transition-colors flex items-center"><i
+                    <ul class="space-y-4 text-sm text-blue-100/70">
+                        <li><a href="#/beranda" class="hover:text-sky-300 transition-colors">Beranda</a></li>
+                        <li><a href="#/umkm" class="hover:text-sky-300 transition-colors">Profil UMKM</a></li>
+                        <li><a href="#/kontak" class="hover:text-sky-300 transition-colors">Narahubung</a></li>
+                        <li><a href="#/admin" class="hover:text-sky-300 transition-colors flex items-center"><i
                                     class="fa-solid fa-lock text-[10px] mr-2"></i>Admin Area</a></li>
                     </ul>
                 </div>
@@ -483,30 +496,30 @@
                 <!-- Contact & Social Media Column -->
                 <div>
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-6">Hubungi Kami</h3>
-                    <ul class="space-y-3 text-sm text-emerald-100/70">
+                    <ul class="space-y-3 text-sm text-blue-100/70">
                         <li class="flex items-start">
-                            <i class="fa-solid fa-map-marker-alt mt-1 mr-3 text-emerald-400"></i>
+                            <i class="fa-solid fa-map-marker-alt mt-1 mr-3 text-sky-300"></i>
                             <span>Desa Pesaren, Kec. Sukorejo, Kab. Kendal, Jawa Tengah</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fa-solid fa-envelope mr-3 text-emerald-400"></i>
+                            <i class="fa-solid fa-envelope mr-3 text-sky-300"></i>
                             <a href="mailto:giat16desapesaren@gmail.com"
-                                class="hover:text-emerald-300 transition-colors">giat16desapesaren@gmail.com</a>
+                                class="hover:text-sky-200 transition-colors">giat16desapesaren@gmail.com</a>
                         </li>
                         <li class="flex items-center">
-                            <i class="fa-solid fa-phone mr-3 text-emerald-400"></i>
+                            <i class="fa-solid fa-phone mr-3 text-sky-300"></i>
                             <span>0812-3456-7890</span>
                         </li>
                     </ul>
                     <!-- Social icons -->
                     <div class="flex space-x-3 mt-6">
                         <a href="https://instagram.com" target="_blank"
-                            class="w-9 h-9 rounded-xl bg-forest-800 hover:bg-pink-600 text-white transition-all flex items-center justify-center border border-forest-700 shadow-sm"
+                            class="w-9 h-9 rounded-xl bg-navy-800 hover:bg-pink-600 text-white transition-all flex items-center justify-center border border-navy-700 shadow-sm"
                             aria-label="Instagram" title="Instagram">
                             <i class="fa-brands fa-instagram text-base"></i>
                         </a>
                         <a href="https://wa.me/6281234567890" target="_blank"
-                            class="w-9 h-9 rounded-xl bg-forest-800 hover:bg-emerald-500 text-white transition-all flex items-center justify-center border border-forest-700 shadow-sm"
+                            class="w-9 h-9 rounded-xl bg-navy-800 hover:bg-emerald-500 text-white transition-all flex items-center justify-center border border-navy-700 shadow-sm"
                             aria-label="WhatsApp" title="WhatsApp">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
                         </a>
@@ -519,7 +532,7 @@
     <!-- SUPABASE CONFIGURATION BUTTON & MODAL -->
     <!-- Floating Button (Hidden in Production) -->
     <button id="supabase-config-btn"
-        class="hidden fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-forest-800 hover:bg-forest-750 text-white items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 group"
+        class="hidden fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-navy-800 hover:bg-navy-750 text-white items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 group"
         title="Pengaturan Database Supabase">
         <i class="fa-solid fa-database text-lg group-hover:rotate-12 transition-transform"></i>
         <span
@@ -534,18 +547,18 @@
         <div
             class="bg-white rounded-3xl w-full max-w-lg border border-slate-100 shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
             <!-- Header -->
-            <div class="bg-forest-900 text-emerald-50 px-6 py-5 flex items-center justify-between">
+            <div class="bg-navy-900 text-slate-100 px-6 py-5 flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <div
-                        class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-300 border border-emerald-400/20">
+                        class="w-10 h-10 rounded-xl bg-sky-400/20 flex items-center justify-center text-sky-300 border border-sky-400/20">
                         <i class="fa-solid fa-cloud-bolt text-lg"></i>
                     </div>
                     <div>
                         <h3 class="font-extrabold text-lg text-white font-serif">Koneksi Supabase</h3>
-                        <p class="text-xs text-emerald-300/80">Hubungkan portal UMKM dengan database cloud</p>
+                        <p class="text-xs text-sky-300/80">Hubungkan portal UMKM dengan database cloud</p>
                     </div>
                 </div>
-                <button id="close-supabase-modal-btn" class="text-emerald-300/60 hover:text-white transition-colors">
+                <button id="close-supabase-modal-btn" class="text-sky-300/60 hover:text-white transition-colors">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
@@ -553,16 +566,16 @@
             <!-- Content -->
             <div class="p-6 space-y-5 overflow-y-auto flex-grow">
                 <div
-                    class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 text-xs text-emerald-800 leading-relaxed space-y-2">
+                    class="bg-navy-50 border border-navy-100 rounded-2xl p-4 text-xs text-navy-900 leading-relaxed space-y-2">
                     <p class="font-bold flex items-center"><i
-                            class="fa-solid fa-circle-info mr-2 text-sm text-emerald-700"></i>Petunjuk Penting:</p>
+                            class="fa-solid fa-circle-info mr-2 text-sm text-navy-700"></i>Petunjuk Penting:</p>
                     <p>1. Jalankan skrip SQL skema Supabase yang ada di dalam file <code
-                            class="font-mono bg-emerald-150 px-1 py-0.5 rounded text-emerald-900">implementation_plan.md</code>
+                            class="font-mono bg-navy-150 px-1 py-0.5 rounded text-navy-900">implementation_plan.md</code>
                         pada SQL Editor Supabase Anda.</p>
                     <p>2. Salin URL Proyek & Anon Key Anda, lalu paste di bawah untuk menghubungkan web secara online.
                     </p>
                     <p>3. Jika kolom di bawah kosong, web otomatis menggunakan mode offline (<code
-                            class="font-mono bg-emerald-150 px-1 py-0.5 rounded text-emerald-900">localStorage</code>)
+                            class="font-mono bg-navy-150 px-1 py-0.5 rounded text-navy-900">localStorage</code>)
                         demi kenyamanan testing.</p>
                 </div>
 
@@ -572,7 +585,7 @@
                             class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Supabase
                             URL</label>
                         <input type="url" id="supabase-url-input"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-sm text-slate-700"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-sm text-slate-700"
                             placeholder="https://xxxxxx.supabase.co">
                     </div>
                     <div>
@@ -580,7 +593,7 @@
                             class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Supabase Anon
                             Key</label>
                         <textarea id="supabase-key-input" rows="3"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-800/20 focus:border-forest-800 transition-all text-sm text-slate-700 font-mono resize-none"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-sm text-slate-700 font-mono resize-none"
                             placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."></textarea>
                     </div>
                 </div>
@@ -621,7 +634,7 @@
                         Batal
                     </button>
                     <button id="supabase-save-btn"
-                        class="px-5 py-2.5 bg-forest-800 hover:bg-forest-750 active:bg-forest-900 text-white font-bold text-xs rounded-xl shadow-md transition-colors">
+                        class="px-5 py-2.5 bg-navy-800 hover:bg-navy-750 active:bg-navy-900 text-white font-bold text-xs rounded-xl shadow-md transition-colors">
                         Simpan & Hubungkan
                     </button>
                 </div>
