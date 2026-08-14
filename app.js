@@ -1,4 +1,4 @@
-// PESONA - APP LOGIC & SUPABASE CLOUD DATABASE
+﻿// PESONA - APP LOGIC & SUPABASE CLOUD DATABASE
 // Integrated directly with Supabase Cloud Database & Global Media Upload System
 
 window.SUPABASE_URL = 'https://ccyvckgritpqaowujnxk.supabase.co';
@@ -1082,13 +1082,13 @@ function renderAdmin() {
                             <i class="fa-solid fa-lock text-xl"></i>
                         </div>
                         <h2 class="text-3xl font-extrabold text-navy-800 font-serif">Login Administrator</h2>
-                        <p class="mt-2 text-sm text-slate-500">Gunakan akun admin yang terdaftar di database.</p>
+                        <p class="mt-2 text-sm text-slate-500">Gunakan akun admin yang sudah terdaftar.</p>
                     </div>
 
                     <form id="admin-login-form" class="mt-8 space-y-6">
                         <div class="space-y-4">
                             <div>
-                                <label for="login-email" class="block text-sm font-semibold text-slate-700 mb-1">Email Admin</label>
+                                <label for="login-email" class="block text-sm font-semibold text-slate-700 mb-1">Email/Username</label>
                                 <input type="email" id="login-email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-800/20 focus:border-navy-800 transition-all text-slate-700" placeholder="••••••••">
                             </div>
                             <div>
